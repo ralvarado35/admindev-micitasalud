@@ -29,7 +29,8 @@ export class LoginComponent implements OnInit {
   constructor(public auth: AuthService, public router: Router) {}
   ngOnInit(): void {
     if (localStorage.getItem('authenticated')) {
-      localStorage.removeItem('authenticated');
+      //localStorage.removeItem('authenticated');
+      this.router.navigate([routes.adminDashboard]);
     }
   }
 
@@ -42,7 +43,7 @@ export class LoginComponent implements OnInit {
         if (resp){
           // El login es exitos
           setTimeout(() => {
-            this.router.navigate([routes.adminDashboard]);
+            document.location.reload();
           }, 50)
         } else{
           // El login no es exitoso

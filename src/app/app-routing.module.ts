@@ -13,6 +13,12 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./core/core.module').then((m) => m.CoreModule),
   },
+
+  {
+    path: '',
+    loadChildren: () => import('./medical/medical.module').then((m) => m.MedicalModule),
+  },
+
   {
     path: '',
     loadChildren: () =>

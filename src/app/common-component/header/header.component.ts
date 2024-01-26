@@ -29,6 +29,16 @@ export class HeaderComponent {
     console.log(this.user)
   }
 
+  getRole(){
+    let RoleName = "";
+    this.user.roles.forEach((rol:any) => {
+      RoleName = rol
+    });
+    return RoleName;
+
+
+  }
+
   openBoxFunc() {
     this.openBox = !this.openBox;
     /* eslint no-var: off */

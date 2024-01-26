@@ -23,7 +23,7 @@ export class CoreComponent {
   page = '';
   currentUrl = '';
 
-  constructor(private sideBar: SideBarService,public router: Router,private data: DataService,) 
+  constructor(private sideBar: SideBarService,public router: Router,private data: DataService,)
   {
     this.sideBar.toggleSideBar.subscribe((res: string) => {
       if (res == 'true') {
