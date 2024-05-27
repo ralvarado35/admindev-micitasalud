@@ -1,4 +1,3 @@
-import { DoctorSettingRoutingModule } from './../../doctor/doctor-setting/doctor-setting-routing.module';
 import { DashboardService } from './../service/dashboard.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { routes } from 'src/app/shared/routes/routes';
@@ -19,6 +18,7 @@ import {
   ApexLegend,
   ApexTooltip,
 } from 'ng-apexcharts';
+import { AppointmentService } from 'src/app/medical/appointment/service/appointment.service';
 interface data {
   value: string ;
 }
@@ -79,35 +79,37 @@ export class DoctorDashboardComponent implements OnInit{
     {value: '2026'},
   ];
   selecedLists: data[] = [
-    {value: 'This Week'},
-    {value: 'Last Week'},
-    {value: 'This Month'},
-    {value: 'Last Month'},
+    {value: 'Esta Semana'},
+    {value: 'Semana Pasada'},
+    {value: 'Este Mes'},
+    {value: 'Mes Pasado'},
   ];
 
   appointments:any = [];
-  num_appointment_current=0;
-  num_appointment_before=0;
+  num_appointments_current=0;
+  num_appointments_before=0;
   porcentaje_d=0;
 
-  num_appointment_attention_current=0;
-  num_appointment_attention_before=0;
+  num_appointments_attetion_current=0;
+  num_appointments_attetion_before=0;
   porcentaje_da=0;
 
-  num_appointment_total_pay_current=0;
-  num_appointment_total_pay_before=0;
+  num_appointments_total_pay_current=0;
+  num_appointments_total_pay_before=0;
   porcentaje_dt=0;
 
-  num_appointment_total_pending_current=0;
-  num_appointment_total_pending_before=0;
+  num_appointments_total_pending_current=0;
+  num_appointments_total_pending_before=0;
   porcentaje_dtp=0;
 
   query_income_year:any = null;
   query_n_appointment_year:any = null
   query_n_appointment_year_before:any = null
+  user: any
 
   constructor(
-    public serviceDasboard: DashboardService
+    public serviceDasboard: DashboardService,
+    public appointmentService: AppointmentService
   ) {
     this.chartOptionsOne = {
       chart: {
@@ -262,10 +264,24 @@ export class DoctorDashboardComponent implements OnInit{
   ngOnInit(): void {
     this.serviceDasboard.getConfigdashboard().subscribe((resp:any) => {
       console.log(resp)
-      this.doctors = resp.doctors
+      this.doctors = resp.doctors     
     })
+    this.user = this.appointmentService.authService.user
+    console.log("this user" + this.user.mobile)
+    this.doctor_id = this.user.id;
+    this.selectionDoctor();
+
   }
 
+  isPermited(){
+    let band = false;
+    this.user.roles.forEach((rol:any) => {
+      if ((rol).toUpperCase().indexOf("DOCTOR") != -1){
+        band= true;
+      }
+    });
+    return band;
+  }
 
   dashboardDoctor(){
     const data = {
@@ -275,25 +291,27 @@ export class DoctorDashboardComponent implements OnInit{
     this.query_n_appointment_year=null;
     this.query_n_appointment_year_before=null;
 
+    console.log("ID DEL DOCTOR PARA VERIFICAR: " + this.doctor_id)
+
     this.serviceDasboard.dashboardDoctor(data).subscribe((resp:any) => {
       console.log(resp)
 
-      this.appointments = resp.appointments.data;
+      this.appointments = resp.apointments.data;
 
-      this.num_appointment_current = resp.num_appointment_current
-      this.num_appointment_before = resp.num_appointment_before
+      this.num_appointments_current = resp.num_appointments_current
+      this.num_appointments_before = resp.num_appointments_before
       this.porcentaje_d = resp.porcentaje_d
 
-      this.num_appointment_attention_current = resp.num_appointment_attention_current
-      this.num_appointment_attention_before = resp.num_appointment_attention_before
+      this.num_appointments_attetion_current = resp.num_appointments_attetion_current
+      this.num_appointments_attetion_before = resp.num_appointments_attetion_before
       this.porcentaje_da = resp.porcentaje_da
 
-      this.num_appointment_total_pay_current = resp.num_appointment_total_pay_current
-      this.num_appointment_total_pay_before = resp.num_appointment_total_pay_before
+      this.num_appointments_total_pay_current = resp.num_appointments_total_pay_current
+      this.num_appointments_total_pay_before = resp.num_appointments_total_pay_before
       this.porcentaje_dt = resp.porcentaje_dt
 
-      this.num_appointment_total_pending_current = resp.num_appointment_total_pending_current
-      this.num_appointment_total_pending_before = resp.num_appointment_total_pending_before
+      this.num_appointments_total_pending_current = resp.num_appointments_total_pending_current
+      this.num_appointments_total_pending_before = resp.num_appointments_total_pending_before
       this.porcentaje_dtp = resp.porcentaje_dtp
     })
   }
@@ -359,9 +377,9 @@ export class DoctorDashboardComponent implements OnInit{
       //     data: data_income,
       //   }
       // ]
-      const query_patients_by_gender = resp.query_patients_by_gender;
+      const query_patient_by_genders = resp.query_patient_by_genders;
       const data_by_genders:any = []
-      query_patients_by_gender.forEach((item:any) => {
+      query_patient_by_genders.forEach((item:any) => {
         data_by_genders.push(parseInt(item.hombre));
         data_by_genders.push(parseInt(item.mujer));
       });

@@ -295,21 +295,21 @@ export class DataService {
           ],
         },
         {
-          menuValue: 'Usuarios',
+          menuValue: 'Personal',
           hasSubRoute: true,
           showSubRoute: false,
           base: 'staff',
           img: 'assets/img/icons/menu-icon-08.svg',
           subMenus: [
             {
-              menuValue: 'Agregar Usuario',
+              menuValue: 'Agregar Personal',
               route: routes.addStaff,
               base: routes.addStaff,
               permision: 'register_staff',
               show_nav: true,
             },
             {
-              menuValue: 'Listado Usuarios',
+              menuValue: 'Listado Personal',
               route: routes.staffList,
               base: routes.staffList,
               permision: 'list_staff',
@@ -383,19 +383,20 @@ export class DataService {
           img: 'assets/img/icons/menu-icon-02.svg',
           subMenus: [
             {
-              menuValue: 'Agregar Doctor',
-              route: routes.addDoctor,
-              base: routes.addDoctor,
-              permision: 'register_doctor',
-              show_nav: true,
-            },
-            {
               menuValue: 'Listado Doctores',
               route: routes.doctorsList,
               base: routes.doctorsList,
               permision: 'list_doctor',
               show_nav: true,
             },
+            {
+              menuValue: 'Agregar Doctor',
+              route: routes.addDoctor,
+              base: routes.addDoctor,
+              permision: 'register_doctor',
+              show_nav: true,
+            },
+
             {
               menuValue: 'Edit Doctor',
               route: '',
@@ -427,18 +428,17 @@ export class DataService {
           img: 'assets/img/icons/menu-icon-03.svg',
           subMenus: [
             {
-              menuValue: 'Agregar Paciente',
-              route: routes.addPatient,
-              base: routes.addPatient,
-              permision: 'register_patient',
-              show_nav: true,
-            },
-
-            {
               menuValue: 'Listado Pacientes',
               route: routes.patientsList,
               base: routes.patientsList,
               permision: 'list_patient',
+              show_nav: true,
+            },
+            {
+              menuValue: 'Agregar Paciente',
+              route: routes.addPatient,
+              base: routes.addPatient,
+              permision: 'register_patient',
               show_nav: true,
             },
 
@@ -473,19 +473,20 @@ export class DataService {
           img: 'assets/img/icons/menu-icon-04.svg',
           subMenus: [
             {
-              menuValue: 'Agregar Cita',
-              route: routes.addAppointment,
-              base: routes.addAppointment,
-              permision: 'register_appointment',
-              show_nav: true,
-            },
-            {
               menuValue: 'Listado Citas',
               route: routes.appointmentList,
               base: routes.appointmentList,
               permision: 'list_appointment',
               show_nav: true,
             },
+            {
+              menuValue: 'Agregar Cita',
+              route: routes.addAppointment,
+              base: routes.addAppointment,
+              permision: 'register_appointment',
+              show_nav: true,
+            },
+
 
             {
               menuValue: 'Edit Appointment',
@@ -596,6 +597,47 @@ export class DataService {
           show_nav: true,
           subMenus: [],
         },
+
+        // {
+        //   menuValue: 'Clinic',
+        //   hasSubRoute: true,
+        //   showSubRoute: false,
+        //   base: 'clinics',
+        //   img: 'assets/img/icons/menu-icon-09.svg',
+        //   subMenus: [
+        //     {
+        //       menuValue: 'Listar Clinicas',
+        //       route: routes.listClinic,
+        //       base: routes.listClinic,
+        //       permision: 'show_clinic',
+        //       show_nav: true,
+        //     },
+        //     {
+        //       menuValue: 'Agregar Clinica',
+        //       route: routes.addClinic,
+        //       base: routes.addClinic,
+        //       permision: 'add_clinic',
+        //       show_nav: true,
+        //     },
+        //     {
+        //       menuValue: 'Editar Clinica',
+        //       route: '',
+        //       base: '',
+        //       permision: 'edit_clinic',
+        //       show_nav: false,
+        //     },
+        //     {
+        //       menuValue: 'Eliminar Clinica',
+        //       route: '',
+        //       base: '',
+        //       permision: 'delete_clinic',
+        //       show_nav: false,
+        //     },
+
+        //   ],
+        // },
+
+
         //{
         //   menuValue: 'Activities',
         //   route: routes.activities,

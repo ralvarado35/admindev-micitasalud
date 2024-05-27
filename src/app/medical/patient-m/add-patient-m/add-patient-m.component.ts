@@ -58,17 +58,18 @@ export class AddPatientMComponent {
 
 
     save(){
-      this.text_validation = '';
 
-      if(!this.name || !this.surname || !this.n_document || !this.mobile ){
-        this.text_validation = " ESTOS CAMPOS SON OBLIGATORIOS (Nombre, Apellido, No. Documento, Teléfono)";
+       this.text_validation = '';
+
+      if(!this.name || !this.surname || !this.n_document || !this.birth_date  || !this.gender || !this.mobile ){
+        this.text_validation = " ESTOS CAMPOS SON OBLIGATORIOS Y/O IMPORTANTES (Nombre, Apellido, No. Documento,Fecha Nacimiento, Género, Teléfono)";
         return;
       }
 
-      if (!this.ta || !this.temperatura || !this.fc || !this.fr || !this.peso){
-      this.text_validation = " LOS SIGNOS VITALES SON OBLIGATORIOS";
-      return;
-      }
+      // if (!this.ta || !this.temperatura || !this.fc || !this.fr || !this.peso){
+      //   this.text_validation = " LOS SIGNOS VITALES SON OBLIGATORIOS";
+      // return;
+      // }
 
 
     //  if(!this.name_companion || !this.surname_companion){
@@ -215,5 +216,5 @@ export class AddPatientMComponent {
 
     }
 
-
+   
 }

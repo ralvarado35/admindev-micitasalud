@@ -18,6 +18,7 @@ export class ListAppointmentsComponent {
 
   public showFilter = false;
   public searchDataValue = '';
+  public searchPatient = '';
   public specialitie_id = '';
   public date = null;
   public lastIndex = 0;
@@ -78,7 +79,7 @@ export class ListAppointmentsComponent {
 
 
 
-    this.appointmentService.listAppointments(page, this.searchDataValue, this.specialitie_id, this.date ).subscribe((resp: any) => {
+    this.appointmentService.listAppointments(page, this.searchDataValue, this.searchPatient, this.specialitie_id, this.date ).subscribe((resp: any) => {
       console.log(resp);
 
       this.totalData = resp.total;

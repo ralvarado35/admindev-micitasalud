@@ -40,13 +40,13 @@
                               </div>
                               <div class="col-12 col-md-6 col-xl-4">
                                   <div class="form-group local-forms">
-                                      <label >Teléfono <span class="login-danger">*</span></label>
-                                      <input class="form-control"  [(ngModel)] = "mobile" name="mobile" type="text"  >
+                                      <label >Celular <span class="login-danger">*</span></label>
+                                      <input class="form-control"  [(ngModel)] = "mobile" name="mobile" type="text" mask="0000-0000" >
                                   </div>
                               </div>
                               <div class="col-12 col-md-6 col-xl-6">
                                   <div class="form-group local-forms">
-                                      <label >Correo <span class="login-danger">*</span></label>
+                                      <label >Email <span class="login-danger">*</span></label>
                                       <input class="form-control"  [(ngModel)] = "email" name="email" type="email"  >
                                   </div>
                               </div>
@@ -65,7 +65,7 @@
                               <div class="col-12 col-md-6 col-xl-6">
                                   <div class="form-group local-forms">
                                       <label >Fecha Nacimiento  <span class="login-danger">*</span></label>
-                                      <input class="form-control datetimepicker" [(ngModel)] = "birth_date" name="birth_date" type="text" matInput [matDatepicker]="picker"  >
+                                      <input class="form-control datetimepicker" [(ngModel)] = "birth_date" name="birth_date" type="text" matInput [matDatepicker]="picker" placeholder="MM/DD/AAAA" >
                                       <mat-datepicker #picker></mat-datepicker>
                                       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                                   </div>
@@ -75,12 +75,12 @@
                                       <label class="gen-label">Género<span class="login-danger">*</span></label>
                                       <div class="form-check-inline">
                                           <label class="form-check-label">
-                                              <input type="radio" name="gender" value="1" [(ngModel)] = "gender" class="form-check-input">Male
+                                              <input type="radio" name="gender" value="1" [(ngModel)] = "gender" class="form-check-input">Masculino
                                           </label>
                                       </div>
                                       <div class="form-check-inline">
                                           <label class="form-check-label">
-                                              <input type="radio" name="gender" value="2" [(ngModel)] = "gender" class="form-check-input">Female
+                                              <input type="radio" name="gender" value="2" [(ngModel)] = "gender" class="form-check-input">Femenino
                                           </label>
                                       </div>
                                   </div>
@@ -128,7 +128,7 @@
                                       <label class="local-top">Foto <span class="login-danger">*</span></label>
                                       <div class="settings-btn upload-files-avator">
                                           <input type="file" accept="image/*" name="image" id="file" (change)="loadFile($event)" class="hide-input">
-                                          <label for="file" class="upload">Seleccionar Foto</label>
+                                          <label for="file" class="upload">Seleccione Foto</label>
                                       </div>
                                   </div>
                                   <div class="" *ngIf="FILE_AVATAR">
@@ -150,28 +150,7 @@
                                       </div>
                                   </div>
                               </div> -->
-                              <div class="col-12">
-                                <div class="form-group row" *ngIf="text_success">
-                                  <div class="col-md-12">
-                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                      <strong>Exito!</strong>  {{ text_success }}.
-                                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                                          <span aria-hidden="true"> </span>
-                                      </button>
-                                  </div>
-                                  </div>
-                                </div>
-                                <div class="form-group row" *ngIf="text_validation">
-                                  <div class="col-md-12">
-                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                      <strong>!</strong>{{ text_validation }}.
-                                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                                          <span aria-hidden="true"> </span>
-                                      </button>
-                                  </div>
-                                  </div>
-                                </div>
-                              </div>
+
                               <div class="col-12">
                                 <div class="card-box">
                                   <div class="card-block">
@@ -225,6 +204,28 @@
                                   </div>
                               </div>
 
+                              </div>
+                              <div class="col-12">
+                                <div class="form-group row" *ngIf="text_success">
+                                  <div class="col-md-12">
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                      <strong>Exito!</strong>  {{ text_success }}.
+                                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                          <span aria-hidden="true"> </span>
+                                      </button>
+                                  </div>
+                                  </div>
+                                </div>
+                                <div class="form-group row" *ngIf="text_validation">
+                                  <div class="col-md-12">
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                      <strong>!</strong>{{ text_validation }}.
+                                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                          <span aria-hidden="true"> </span>
+                                      </button>
+                                  </div>
+                                  </div>
+                                </div>
                               </div>
                               <div class="col-12">
                                   <div class="doctor-submit text-end">

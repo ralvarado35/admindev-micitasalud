@@ -23,7 +23,7 @@ export class ListAppointmentPayComponent {
   public specialitie_id = '';
   public date = null;
   public lastIndex = 0;
-  public pageSize = 20;
+  public pageSize = 10;
   public totalData = 0;
   public skip = 0;//MIN
   public limit: number = this.pageSize;//MAX
@@ -83,10 +83,11 @@ export class ListAppointmentPayComponent {
 
     this.appointmentPayService.listAppointmentPays(page,this.searchDataDoctor,this.searchDataValue,this.specialitie_id,this.date_start,this.date_end).subscribe((resp:any) => {
 
-      console.log(resp);
+
 
       this.totalData = resp.total;
       this.appointmentList = resp.appointments.data;
+      console.log("List Appointment pays: "+  this.appointmentList);
       // this.getTableDataGeneral();
       this.dataSource = new MatTableDataSource<any>(this.appointmentList);
       this.calculateTotalPages(this.totalData, this.pageSize);

@@ -15,8 +15,6 @@ export class AppointmentPayService {
 
   listAppointmentPays(page=1, search_doctor='', search_patient='', specialitie_id='', date_start:null, date_end:null){
 
-    // eslint-disable-next-line no-debugger
-    debugger
     const headers = new HttpHeaders({'Authorization': 'Bearer '+this.authService.token});
     let LINK = '';
    if(search_doctor){

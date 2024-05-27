@@ -6,9 +6,9 @@
           <div class="row">
               <div class="col-sm-12">
                   <ul class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="#">Usuarios</a></li>
+                      <li class="breadcrumb-item"><a href="#">Personal</a></li>
                       <li class="breadcrumb-item"><i class="feather icon-chevron-right"></i></li>
-                      <li class="breadcrumb-item active">Listado Usuarios</li>
+                      <li class="breadcrumb-item active">Listado Personal</li>
                   </ul>
               </div>
           </div>
@@ -26,7 +26,7 @@
                           <div class="row align-items-center">
                               <div class="col">
                                   <div class="doctor-table-blk">
-                                      <h3>Listado Usuarios</h3>
+                                      <h3>Listado Personal</h3>
                                       <div class="doctor-search-blk">
                                           <div class="top-nav-search table-search-blk">
                                                   <input  class="form-control" placeholder="Search here" [(ngModel)]="searchDataValue"
@@ -34,19 +34,19 @@
                                                   <a class="btn"><img src="assets/img/icons/search-normal.svg" alt=""></a>
                                           </div>
                                           <div class="add-group">
-                                              <a routerLink="/staff/add-staff" class="btn btn-primary add-pluss ms-2"><img src="assets/img/icons/plus.svg" alt=""></a>
+                                              <a  [routerLink]= "['/staffs/add-staff/']" class="btn btn-primary add-pluss ms-2"><img src="assets/img/icons/plus.svg" alt=""></a>
                                               <a href="javascript:;" (click)="PageSize()"  class="btn btn-primary doctor-refresh ms-2"><img src="assets/img/icons/re-fresh.svg" alt=""></a>
                                           </div>
                                       </div>
                                   </div>
                               </div>
-                              <div class="col-auto text-end float-end ms-auto download-grp">
+                              <!-- <div class="col-auto text-end float-end ms-auto download-grp">
                                   <a href="javascript:;" class=" me-2"><img src="assets/img/icons/pdf-icon-01.svg" alt=""></a>
                                   <a href="javascript:;" class=" me-2"><img src="assets/img/icons/pdf-icon-02.svg" alt=""></a>
                                   <a href="javascript:;" class=" me-2"><img src="assets/img/icons/pdf-icon-03.svg" alt=""></a>
                                   <a href="javascript:;" ><img src="assets/img/icons/pdf-icon-04.svg" alt=""></a>
 
-                              </div>
+                              </div> -->
                           </div>
                       </div>
                       <!-- /Table Header -->

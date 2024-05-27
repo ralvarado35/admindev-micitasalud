@@ -59,6 +59,19 @@
                             </div>
                             <div class="row align-items-center">
 
+                              <div class="col-12">
+                                <div class="form-group row" *ngIf="text_no_disponibilidad">
+                                  <div class="col-md-12">
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                      <strong>!</strong>{{ text_validation }}.
+                                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                          <span aria-hidden="true"> </span>
+                                      </button>
+                                  </div>
+                                  </div>
+                                </div>
+                              </div>
+
                               <div class="col-8" *ngIf="appointment_selected">
                                 <div class="table-responsive">
                                   <table class="table mb-20">
@@ -134,34 +147,12 @@
                                 </div>
                               </div>
 
-                              <div class="col-12">
-                                <div class="form-group row" *ngIf="text_success">
-                                  <div class="col-md-12">
-                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                      <strong>Exito!</strong>  {{ text_success }}.
-                                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                                          <span aria-hidden="true"> </span>
-                                      </button>
-                                  </div>
-                                  </div>
-                                </div>
-                                <div class="form-group row" *ngIf="text_validation">
-                                  <div class="col-md-12">
-                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                      <strong>!</strong>{{ text_validation }}.
-                                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                                          <span aria-hidden="true"> </span>
-                                      </button>
-                                  </div>
-                                  </div>
-                                </div>
-                              </div>
 
                             </div>
                             <div class="row align-items-center py-4">
                                 <div class="col-12 py-4">
                                   <h4>Datos del paciente</h4>
-                                  <button class="btn btn-sm btn-dark" (click)="resetPatient()">0</button>
+                                  <!-- <button class="btn btn-sm btn-dark" (click)="resetPatient()">0</button> -->
                                 </div>
 
                               <div class="col-12 col-md-6 col-xl-4">
@@ -238,6 +229,29 @@
 
                           </div>
                             <div class="row align-items-center">
+                              <div class="col-12">
+                                <div class="form-group row" *ngIf="text_success">
+                                  <div class="col-md-12">
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                      <strong>Exito!</strong>  {{ text_success }}.
+                                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                          <span aria-hidden="true"> </span>
+                                      </button>
+                                  </div>
+                                  </div>
+                                </div>
+                                <div class="form-group row" *ngIf="text_validation">
+                                  <div class="col-md-12">
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                      <strong>!</strong>{{ text_validation }}.
+                                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                          <span aria-hidden="true"> </span>
+                                      </button>
+                                  </div>
+                                  </div>
+                                </div>
+                              </div>
+
                                 <div class="col-12">
                                   <div class="doctor-submit text-end">
                                      <button type="button" (click)="save()"  class="btn btn-primary submit-form me-2">Actualizar</button>

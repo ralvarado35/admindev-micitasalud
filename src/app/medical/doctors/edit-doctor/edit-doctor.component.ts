@@ -1,202 +1,222 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DoctorService } from '../service/doctor.service';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/shared/auth/auth.service';
 
 @Component({
   selector: 'app-edit-doctor',
   templateUrl: './edit-doctor.component.html',
   styleUrls: ['./edit-doctor.component.scss']
 })
-export class EditDoctorComponent {
-  public selectedValue!: string;
-  public name = '';
-  public surname = '';
-  public mobile = '';
-  public email = '';
-  public password = '';
-  public password_confirmation = '';
+export class EditDoctorComponent implements OnInit {
+  public selectedValue !: string  ;
+  public name:string = '';
+  public surname:string = '';
+  public mobile:string = '';
+  public email:string = '';
+  public password:string = '';
+  public password_confirmation:string = '';
 
-  public birth_date = '';
-  public gender = 1;
-  public education = '';
-  public designation = '';
-  public address = '';
+  public birth_date:string = '';
+  public gender:number = 1;
+  public education:string = '';
+  public designation:string = '';
+  public address:string = '';
 
-  public roles: any = [];
-  public FILE_AVATAR: any;
-  public IMAGEN_PREVISUALIZA: any = 'assets/img/user-06.jpg';
+  public roles:any = [];
 
-  public specialitie_id: any;
-  public specialities: any = [];
+  public FILE_AVATAR:any;
+  public IMAGEN_PREVIZUALIZA:any = 'assets/img/user-06.jpg';
 
-  public text_success = '';
-  public text_validation = '';
+  public specialitie_id:any;
+  public specialities:any = [];
+
+  public text_success:string = '';
+  public text_validation:string = '';
 
   public days_week = [
     {
       day: 'Lunes',
-      class: 'table-primary',
+      class: 'table-primary'
     },
     {
       day: 'Martes',
-      class: 'table-secondary',
+      class: 'table-secondary'
     },
     {
       day: 'Miercoles',
-      class: 'table-success',
+      class: 'table-success'
     },
     {
       day: 'Jueves',
-      class: 'table-warning',
+      class: 'table-warning'
     },
     {
       day: 'Viernes',
-      class: 'table-info',
+      class: 'table-info'
     },
-  ];
-
-  public hours_days: any = [];
-  public hours_selecteds: any = [];
+    {
+      day: 'Sabado',
+      class: 'table-info'
+    }
+  ]
+  public hours_days:any = [];
+  public hours_selecteds:any = [];
   public doctor_id:any;
   public doctor_selected:any;
-
+  public user:any
   constructor(
-    public doctorService: DoctorService,
-    public activedRoute: ActivatedRoute
-    ) {}
+    public doctorsService: DoctorService,
+    public activedRoute: ActivatedRoute,
+    public authService: AuthService
+  ) {
 
+  }
   ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+
+    // eslint-disable-next-line no-debugger
+    //debugger
+    this.user = this.authService.user;
 
     this.activedRoute.params.subscribe((resp:any) => {
-      console.log(resp);
+      console.log("Doctor ID: "  + resp);
       this.doctor_id = resp.id;
     })
 
-    this.doctorService.listConfig().subscribe((resp: any) => {
+    this.doctorsService.listConfig().subscribe((resp:any) => {
       console.log(resp);
       this.roles = resp.roles;
       this.specialities = resp.specialities;
       this.hours_days = resp.hours_days;
-    });
 
+      this.doctorsService.showDoctor(this.doctor_id).subscribe((resp:any) => {
+      // this.doctorsService.showDoctor(this.user.id).subscribe((resp:any) => {
+        console.log(resp);
+        this.doctor_selected = resp.doctor;
 
-    this.doctorService.showDoctor( this.doctor_id).subscribe((resp:any) => {
-      console.log(resp);
-      this.doctor_selected = resp.doctor
-      this.selectedValue = this.doctor_selected.role.id ;
-      this.specialitie_id = this.doctor_selected.specialitie.id;
-      this.name = this.doctor_selected.name;
-      this.surname = this.doctor_selected.surname;
-      this.mobile = this.doctor_selected.mobile;
-      this.email = this.doctor_selected.email;
-      this.birth_date = new Date(this.doctor_selected.birth_date).toISOString();
-      this.gender = this.doctor_selected.gender;
-      this.education = this.doctor_selected.education;
-      this.designation = this.doctor_selected.designation;
-      this.address = this.doctor_selected.address;
-      this.IMAGEN_PREVISUALIZA = this.doctor_selected.avatar;
-      this.hours_selecteds = this.doctor_selected.schedule_selecteds;
+        this.selectedValue = this.doctor_selected.role.id;
+        this.specialitie_id = this.doctor_selected.specialitie.id;
+
+        this.name = this.doctor_selected.name ;
+        this.surname = this.doctor_selected.surname ;
+        this.mobile = this.doctor_selected.mobile ;
+        this.email = this.doctor_selected.email ;
+        this.birth_date = new Date(this.doctor_selected.birth_date).toISOString();
+        this.gender = this.doctor_selected.gender ;
+        this.education = this.doctor_selected.education ;
+        this.designation = this.doctor_selected.designation ;
+        this.address = this.doctor_selected.address ;
+        this.IMAGEN_PREVIZUALIZA = this.doctor_selected.avatar;
+        console.log(this.doctor_selected.avatar)
+        //this.IMAGEN_PREVIZUALIZA ='https://img.freepik.com/vector-gratis/fondo-neon-placa-circuito_23-2148335792.jpg?size=626&ext=jpg&ga=GA1.2.1618700045.1706375878&semt=ais'
+        this.hours_selecteds = this.doctor_selected.schedule_selecteds;
+      })
+
     })
-
   }
 
-  save() {
+  isPermited(){
+    let band = false;
+    this.user.roles.forEach((rol:any) => {
+      if ((rol).toUpperCase().indexOf("DOCTOR") != -1){
+        band= true;
+      }
+    });
+    return band;
+  }
+
+  save(){
     this.text_validation = '';
-    if (!this.name ||!this.email ||!this.surname) {
-      this.text_validation =
-        ' LOS CAMPOS SON NECESARIOS (name, surname, email, avatar)';
+    if(!this.name || !this.email || !this.surname){
+      this.text_validation = "LOS CAMPOS SON NECESARIOS (name,surname,email,avatar)";
       return;
     }
-
-    if (this.password || this.password_confirmation ){
-      if (this.password != this.password_confirmation) {
-        this.text_validation = 'Las contraseñas deben ser iguales';
+    if(this.password){
+      if(this.password != this.password_confirmation){
+        this.text_validation = "LAS CONTRASEÑA DEBEN SER IGUALES";
         return;
       }
     }
 
-
-    if (this.hours_selecteds == 0) {
-      this.text_validation = 'Necesitas seleccionar un horario al menos';
+    if(this.hours_selecteds.length == 0){
+      this.text_validation = "NECESITAS SELECCIONAR UN HORARIO AL MENOS";
       return;
     }
-
     console.log(this.selectedValue);
-    const formData = new FormData();
-    formData.append('name', this.name);
-    formData.append('surname', this.surname);
-    formData.append('email', this.email);
-    formData.append('mobile', this.mobile);
-    formData.append('birth_date', this.birth_date);
-    formData.append('gender', this.gender + '');
 
-    formData.append('role_id', this.selectedValue);
-    formData.append('specialitie_id', this.specialitie_id);
+    let formData = new FormData();
+    formData.append("name",this.name);
+    formData.append("surname",this.surname);
+    formData.append("email",this.email);
+    formData.append("mobile",this.mobile);
+    formData.append("birth_date",this.birth_date);
+    formData.append("gender",this.gender+"");
 
+    formData.append("role_id",this.selectedValue);
+    formData.append("specialitie_id",this.specialitie_id);
 
-    if (this.education){
-      formData.append("education", this.education)
+    if(this.education){
+      formData.append("education",this.education);
     }
-    if (this.designation){
-      formData.append("designation", this.designation)
+    if(this.designation){
+      formData.append("designation",this.designation);
     }
-    if (this.address){
-      formData.append("address", this.address)
+    if(this.address){
+      formData.append("address",this.address);
     }
     if(this.password){
-      formData.append("password", this.password)
+      formData.append("password",this.password);
     }
-   if(this.FILE_AVATAR){
-      formData.append("imagen", this.FILE_AVATAR)
+    if(this.FILE_AVATAR){
+      formData.append("imagen",this.FILE_AVATAR);
     }
 
-    const HOUR_SCHEDULES: any = [];
-    this.days_week.forEach((day:any) =>{
-      const DAYS_HOURS = this.hours_selecteds.filter((hour_select:any) => hour_select.day_name == day.day)
+    let HOUR_SCHEDULES:any = [];
+
+    this.days_week.forEach((day:any) => {
+      let DAYS_HOURS = this.hours_selecteds.filter((hour_select:any) => hour_select.day_name == day.day);
       HOUR_SCHEDULES.push({
         day_name: day.day,
-        children: DAYS_HOURS
+        children: DAYS_HOURS,
       });
     })
 
-    formData.append('schedule_hours',  JSON.stringify(HOUR_SCHEDULES));
-
-    this.doctorService.updateDoctor(this.doctor_id, formData).subscribe((resp: any) => {
+    formData.append("schedule_hours",JSON.stringify(HOUR_SCHEDULES));
+    this.doctorsService.updateDoctor(this.doctor_id,formData).subscribe((resp:any) => {
       console.log(resp);
-      if (resp.message === 403) {
+
+      if(resp.message == 403){
         this.text_validation = resp.message_text;
-      } else {
-        this.text_success = ' El doctor ha sido actualizado correctamente';
-
-
+      }else{
+        this.text_success = 'El usuario ha sido editado correctamente';
       }
-    });
+
+    })
   }
 
-  loadFile($event: any) {
-    if ($event.target.files[0].type.indexOf('image') < 0) {
-      // alert("SOLAMENTE PUEDEN SER ARCHIVOS DE TIPO IMAGEN")
-      this.text_validation = ' SOLAMENTE PUEDEN SER ARCHIVOS DE TIPO IMAGEN';
+  loadFile($event:any){
+    if($event.target.files[0].type.indexOf("image") < 0){
+      // alert("SOLAMENTE PUEDEN SER ARCHIVOS DE TIPO IMAGEN");
+      this.text_validation = "SOLAMENTE PUEDEN SER ARCHIVOS DE TIPO IMAGEN";
       return;
     }
     this.text_validation = '';
     this.FILE_AVATAR = $event.target.files[0];
-    console.log('Imagen: ' + this.FILE_AVATAR);
-    const reader = new FileReader();
+    let reader = new FileReader();
     reader.readAsDataURL(this.FILE_AVATAR);
-    console.log('Imagen 2 ' + reader);
-    reader.onloadend = () => (this.IMAGEN_PREVISUALIZA = reader.result);
+    reader.onloadend = () => this.IMAGEN_PREVIZUALIZA = reader.result;
   }
 
-  addHourItem(hours_day: any, day: any, item: any) {
+  addHourItem(hours_day:any,day:any,item:any){
 
-    const INDEX = this.hours_selecteds.findIndex((hour: any) => hour.day_name == day.day
-             && hour.hour == hours_day.hour
-             && hour.item.hour_start == item.hour_start && hour.item.hour_end == item.hour_end);
-
-    if (INDEX != -1) {
-      this.hours_selecteds.splice(INDEX, 1);
-    } else {
+    let INDEX = this.hours_selecteds.findIndex((hour:any) => hour.day_name == day.day
+                                && hour.hour == hours_day.hour
+                                && hour.item.hour_start == item.hour_start && hour.item.hour_end == item.hour_end);
+    if(INDEX != -1){
+      this.hours_selecteds.splice(INDEX,1);
+    }else{
       this.hours_selecteds.push({
         "day": day,
         "day_name": day.day,
@@ -206,127 +226,103 @@ export class EditDoctorComponent {
         "item": item,
       });
     }
+
     console.log(this.hours_selecteds);
   }
 
-  addHourAll(hours_day: any, day: any) {
+  addHourAll(hours_day:any,day:any){
+    let INDEX = this.hours_selecteds.findIndex((hour:any) => hour.day_name == day.day
+                                && hour.hour == hours_day.hour && hour.grupo == "all");
 
-    const INDEX = this.hours_selecteds.findIndex((hour: any) => hour.day_name == day.day
-                           && hour.hour == hours_day.hour && hour.grupo == "all");
-
-
-    const COUNT_SELECTED = this.hours_selecteds.filter((hour: any) => hour.day_name == day.day
-    && hour.hour == hours_day.hour).length;
-
-    if (INDEX != -1 && COUNT_SELECTED == hours_day.items.length) {
-
-       hours_day.items.forEach((item: any) => {
-        const INDEX = this.hours_selecteds.findIndex((hour: any) =>hour.day_name == day.day
-            && hour.hour == hours_day.hour
-            && hour.item.hour_start == item.hour_start && hour.item.hour_end == item.hour_end
-        );
-
-        if (INDEX != -1) {
-          this.hours_selecteds.splice(INDEX, 1);
+    let COUNT_SELECTED = this.hours_selecteds.filter((hour:any) => hour.day_name == day.day
+                                && hour.hour == hours_day.hour).length;
+    if(INDEX != -1 && COUNT_SELECTED ==  hours_day.items.length){
+      hours_day.items.forEach((item:any) => {
+        let INDEX = this.hours_selecteds.findIndex((hour:any) => hour.day_name == day.day
+                                && hour.hour == hours_day.hour
+                                && hour.item.hour_start == item.hour_start && hour.item.hour_end == item.hour_end);
+        if(INDEX != -1){
+          this.hours_selecteds.splice(INDEX,1);
         }
       });
-
-
-    } else {
-       hours_day.items.forEach((item: any) => {
-         const INDEX = this.hours_selecteds.findIndex((hour: any) =>hour.day_name == day.day
-            && hour.hour == hours_day.hour
-            && hour.item.hour_start == item.hour_start && hour.item.hour_end == item.hour_end
-        );
-
-        // eslint-disable-next-line no-cond-assign
-        if (INDEX != -1) {
-          this.hours_selecteds.splice(INDEX, 1);
+    }else{
+      hours_day.items.forEach((item:any) => {
+        let INDEX = this.hours_selecteds.findIndex((hour:any) => hour.day_name == day.day
+                                && hour.hour == hours_day.hour
+                                && hour.item.hour_start == item.hour_start && hour.item.hour_end == item.hour_end);
+        if(INDEX != -1){
+          this.hours_selecteds.splice(INDEX,1);
         }
         this.hours_selecteds.push({
-          day: day,
-          day_name: day.day,
-          hours_day: hours_day,
-          hour: hours_day.hour,
+          "day": day,
+          "day_name": day.day,
+          "hours_day": hours_day,
+          "hour": hours_day.hour,
           "grupo": "all",
-          item: item,
+          "item": item,
         });
       });
     }
     console.log(this.hours_selecteds);
   }
 
-  addHourAllDay($event:any, hours_day:any){
+  addHourAllDay($event:any,hours_day:any){
 
-   const INDEX = this.hours_selecteds.findIndex((hour: any) => hour.hour == hours_day.hour );
+    let INDEX = this.hours_selecteds.findIndex((hour:any) => hour.hour == hours_day.hour);
 
-    if (INDEX != -1 && !$event.currentTarget.checked){
+    if(INDEX != -1 && !$event.currentTarget.checked){
       this.days_week.forEach((day) => {
-        hours_day.items.forEach((item: any) => {
-          const INDEX = this.hours_selecteds.findIndex((hour: any) =>hour.day_name == day.day
-              && hour.hour == hours_day.hour
-              && hour.item.hour_start == item.hour_start && hour.item.hour_end == item.hour_end
-          );
-
-          if (INDEX != -1) {
-            this.hours_selecteds.splice(INDEX, 1);
+        hours_day.items.forEach((item:any) => {
+          let INDEX = this.hours_selecteds.findIndex((hour:any) => hour.day_name == day.day
+                                  && hour.hour == hours_day.hour
+                                  && hour.item.hour_start == item.hour_start && hour.item.hour_end == item.hour_end);
+          if(INDEX != -1){
+            this.hours_selecteds.splice(INDEX,1);
           }
         });
-        })
-    } else{
-
+      })
+    }else{
       this.days_week.forEach((day) => {
-        hours_day.items.forEach((item: any) => {
-          const INDEX = this.hours_selecteds.findIndex((hour: any) =>hour.day_name == day.day
-              && hour.hour == hours_day.hour
-              && hour.item.hour_start == item.hour_start && hour.item.hour_end == item.hour_end
-          );
-
-          if (INDEX != -1) {
-            this.hours_selecteds.splice(INDEX, 1);
+        hours_day.items.forEach((item:any) => {
+          let INDEX = this.hours_selecteds.findIndex((hour:any) => hour.day_name == day.day
+                                  && hour.hour == hours_day.hour
+                                  && hour.item.hour_start == item.hour_start && hour.item.hour_end == item.hour_end);
+          if(INDEX != -1){
+            this.hours_selecteds.splice(INDEX,1);
           }
         });
-        })
-
+      })
       setTimeout(() => {
         this.days_week.forEach((day) => {
-          this.addHourAll(hours_day,day )
-        });
-      }, 25)
+          this.addHourAll(hours_day,day);
+        })
+      }, 25);
     }
 
 
   }
 
-  isCheckHourAll(hours_day: any, day: any) {
+  isCheckHourAll(hours_day:any,day:any){
+    let INDEX = this.hours_selecteds.findIndex((hour:any) => hour.day_name == day.day
+                                && hour.hour == hours_day.hour && hour.grupo == "all");
 
-    const INDEX = this.hours_selecteds.findIndex((hour: any) => hour.day_name == day.day
-    && hour.hour == hours_day.hour && hour.grupo == "all");
-
-    const COUNT_SELECTED = this.hours_selecteds.filter((hour: any) => hour.day_name == day.day
-    && hour.hour == hours_day.hour).length;
-
-    if (INDEX != -1 && COUNT_SELECTED == hours_day.items.length) {
-          return true
-    } else {
-      return false
-     }
-
-  }
-
-  isCheckHour(hours_day: any, day: any, item: any) {
-
-    const INDEX = this.hours_selecteds.findIndex((hour: any) =>hour.day_name == day.day
-                                          && hour.hour == hours_day.hour
-                                          && hour.item.hour_start == item.hour_start && hour.item.hour_end == item.hour_end
-                                      );
-
-
-    if (INDEX != -1) {
-      return true
-    } else {
-      return false
+    let COUNT_SELECTED = this.hours_selecteds.filter((hour:any) => hour.day_name == day.day
+                                && hour.hour == hours_day.hour).length;
+    if(INDEX != -1 && COUNT_SELECTED ==  hours_day.items.length){
+      return true;
+    }else{
+      return false;
     }
   }
 
+  isCheckHour(hours_day:any,day:any,item:any){
+    let INDEX = this.hours_selecteds.findIndex((hour:any) => hour.day_name == day.day
+                                && hour.hour == hours_day.hour
+                                && hour.item.hour_start == item.hour_start && hour.item.hour_end == item.hour_end);
+    if(INDEX != -1){
+      return true;
+    }else{
+      return false;
+    }
+  }
 }

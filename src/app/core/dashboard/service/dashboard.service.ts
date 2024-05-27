@@ -37,7 +37,7 @@ export class DashboardService {
     }
 
     dashboardDoctor(data:unknown){
-      console.log("Data: " + data)
+      console.log("Data DOCTOR: " + data)
       const headers = new HttpHeaders({'Authorization': 'Bearer '+this.authService.token});
       const URL = URL_SERVICIOS+"/dashboard/doctor";
       return this.http.post(URL, data,  {headers: headers})

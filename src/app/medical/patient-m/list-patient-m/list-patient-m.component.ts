@@ -33,7 +33,7 @@ export class ListPatientMComponent {
   public patient_generals: any = [];
   public patient_selected: any;
   public user:any;
-  
+
   constructor(public patientService: PatientMService) {}
 
   ngOnInit() {
@@ -84,6 +84,28 @@ export class ListPatientMComponent {
   selectUser(rol: any) {
     this.patient_selected = rol;
   }
+
+
+
+  calculateAge(inputDate: any){
+
+      const inputDateObject = new Date(inputDate);
+      // Get the current date
+      const currentDate = new Date();
+
+      // Calculate the difference in milliseconds
+      const timeDifference = currentDate.getTime() - inputDateObject.getTime();
+
+      // Calculate the age in years
+      const ageInMilliseconds = new Date(timeDifference);
+      const age = Math.abs(ageInMilliseconds.getUTCFullYear() - 1970);
+
+      return isNaN(age) ? 'Invalid date format' : age ;
+
+  }
+
+
+
 
   deletePatient() {
     this.patientService

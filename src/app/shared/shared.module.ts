@@ -52,7 +52,6 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     NgxMaterialTimepickerModule,
     RouterModule
-
   ],
   exports: [
     CommonModule,

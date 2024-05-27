@@ -27,7 +27,7 @@ export class StaffService {
 
   registerUser(data:unknown){
     console.log("Data: " + data)
-    const headers = new HttpHeaders({'Authorization': 'Bearer '+this.authService.token});
+    const headers = new HttpHeaders({'Authorization': 'Bearer '+ this.authService.token});
     const URL = URL_SERVICIOS+"/staffs";
     return this.http.post(URL, data,  {headers: headers})
 
@@ -40,6 +40,7 @@ export class StaffService {
   }
 
   updateUser(staff_id:string, data:any){
+    console.log(data)
     const headers = new HttpHeaders({'Authorization': 'Bearer '+this.authService.token});
     const URL = URL_SERVICIOS+"/staffs/"+staff_id;
     return this.http.post(URL, data, {headers: headers})

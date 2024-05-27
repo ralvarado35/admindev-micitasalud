@@ -35,14 +35,17 @@
                                                   <div class="form-group doctor-up-files profile-edit-icon mb-0">
                                                       <div class="uplod d-flex">
                                                           <label class="file-upload profile-upbtn mb-0">
-                                                              <img  src="assets/img/icons/camera-icon.svg"  alt="Profile"><input type="file">
+                                                              <!-- <img  src="assets/img/icons/camera-icon.svg"  alt="Profile"><input type="file"> -->
                                                           </label>
                                                       </div>
                                                   </div>
                                               </div>
                                               <div class="names-profiles">
                                                   <h4>{{ doctor_selected.full_name }}</h4>
-                                                  <h5>{{ doctor_selected.specialitie.name }}</h5>
+                                                    <ng-container *ngIf="!isPermited()">
+                                                      <h5>{{ doctor_selected.specialitie.name }}</h5>
+                                                    </ng-container>
+                                                  
                                               </div>
                                           </div>
                                       </div>
@@ -50,7 +53,7 @@
                                           <div class="follow-group">
                                               <div class="doctor-follows">
                                                   <h5>Citas</h5>
-                                                  <h4>{{num_appointments}}</h4>
+                                                  <h4>{{num_appointment}}</h4>
                                               </div>
                                               <div class="doctor-follows">
                                                   <h5>Costo</h5>
@@ -64,8 +67,10 @@
                                       </div>
                                       <div class="col-lg-4 col-md-4 d-flex align-items-center">
                                           <div class="follow-btn-group">
-                                              <a [routerLink]="['/doctors/list/edit', doctor_id]"  type="submit" class="btn btn-info follow-btns">Editar</a>
-                                              <button type="submit" class="btn btn-info message-btns">Message</button>
+
+                                              <!-- <a [routerLink]="['/doctors/list/edit', doctor_id]"  type="submit" class="btn btn-info follow-btns">Horarios Disponibles</a> -->
+                                              <a [routerLink]="['/doctors/list/edit/', doctor_selected.id ]"  type="submit" class="btn btn-info follow-btns">Configuración</a>
+                                              <!-- <button type="submit" class="btn btn-info message-btns">Message</button> -->
                                           </div>
                                       </div>
                                   </div>
@@ -80,8 +85,8 @@
                           <div class="card">
                               <div class="card-body">
                                   <div class="heading-detail ">
-                                      <h4 class="mb-3">About me</h4>
-                                      <p>Hello I am Smith Bruklin a Gynaecologist in Sanjivni Hospital Surat. I love to work with all my hospital staff and seniour doctors.</p>
+                                      <!-- <h4 class="mb-3">About me</h4>
+                                      <p>Hello I am Smith Bruklin a Gynaecologist in Sanjivni Hospital Surat. I love to work with all my hospital staff and seniour doctors.</p> -->
                                   </div>
                                   <div class="about-me-list">
                                       <ul class="list-space">
@@ -142,7 +147,7 @@
                                   <div class="tab-content-set">
                                       <ul class="nav">
                                           <li>
-                                              <a href="#" onclick="return false;" [ngClass]="{'active': option_selected === 1}" (click)="optionSelected(1)"><span class="set-about-icon me-2"><img src="assets/img/icons/menu-icon-02.svg" alt=""></span>Listado de Citas</a>
+                                              <a href="#" onclick="return false;" [ngClass]="{'active': option_selected === 1}" (click)="optionSelected(1)"><span class="set-about-icon me-2"><img src="assets/img/icons/menu-icon-02.svg" alt=""></span>Citas</a>
                                           </li>
                                           <li>
                                               <a href="#" onclick="return false;" [ngClass]="{'active': option_selected === 2}" (click)="optionSelected(2)"><span class="set-about-icon me-2"><img src="assets/img/icons/menu-icon-16.svg" alt=""></span>Configuración</a>
@@ -166,7 +171,8 @@
                                                           <span class="time">{{appointment.format_hour_start + ' - ' + appointment.format_hour_end}}</span>
                                                       </div>
                                                       <div class="comman-activitys flex-grow-1">
-                                                          <h3>{{appointment.patient.full_name}} <span> MONTO: $ {{ appointment.amount }}</span></h3>
+                                                        <!-- <span> MONTO: $ {{ appointment.amount }}</span> -->
+                                                          <h3>{{appointment.patient.full_name}} <span>  {{ appointment.treatment }}</span></h3>
                                                           <p *ngIf="appointment.appointment_attention">
                                                             {{ appointment.appointment_attention.description }}
                                                           </p>
@@ -277,7 +283,7 @@
                           </div>
                           <div class="card">
                               <div class="card-header">
-                                  <h4 class="card-title ">Citas Médicas Pendientes</h4>
+                                  <h4 class="card-title ">Citas Médicas</h4>
                               </div>
                               <div class="card-body p-0 table-dash">
                                   <div class="table-responsive">
@@ -294,7 +300,7 @@
                                               </tr>
                                           </thead>
                                           <tbody>
-                                              <tr *ngFor="let data of appointment_pending">
+                                              <tr *ngFor="let data of appointment_pendings">
                                                   <td >{{data.date_appointment_format}} </td>
                                                   <td >{{data.patient.full_name}}</td>
                                                   <td>

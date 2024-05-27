@@ -14,6 +14,7 @@ import { of } from 'rxjs';
 export class AuthService {
 
   user:any;
+  clinic_name: any
   token:any;
 
   constructor(private router: Router, public http: HttpClient) {
@@ -31,7 +32,15 @@ export class AuthService {
     }
   }
 
-  login (email: string, password: string) {
+  registerUser(data:unknown){
+    //console.log("Data: " + data)
+    //const headers = new HttpHeaders({'Authorization': 'Bearer '+this.authService.token});
+    const URL = URL_SERVICIOS+"/auth/register";
+    return this.http.post(URL, data)
+
+  }
+
+  login (email: string,  password: string) {
     const URL = URL_SERVICIOS + "/auth/login";
     return this.http.post(URL, {email: email, password: password}).pipe(
       map((auth: any) => {
@@ -52,6 +61,7 @@ export class AuthService {
       localStorage.setItem("token", auth.access_token);
       localStorage.setItem("user", JSON.stringify(auth.user))
       localStorage.setItem('authenticated', 'true');
+      localStorage.setItem('clinic_id', auth.user.clinic_id )
       return true;
     }
     return false;
@@ -61,6 +71,9 @@ export class AuthService {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     localStorage.removeItem("authenticated");
+    localStorage.removeItem("clinic_id");
     this.router.navigate([routes.login]);
   }
+
+
 }

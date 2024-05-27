@@ -6,9 +6,9 @@
           <div class="row">
               <div class="col-sm-12">
                   <ul class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="#">Staffs </a></li>
+                      <li class="breadcrumb-item"><a href="#">Colaboradores </a></li>
                       <li class="breadcrumb-item"><i class="feather icon-chevron-right"></i></li>
-                      <li class="breadcrumb-item active">Edit Staffs</li>
+                      <li class="breadcrumb-item active">Editar Colaborador</li>
                   </ul>
               </div>
           </div>
@@ -23,30 +23,30 @@
                           <div class="row">
                               <div class="col-12">
                                   <div class="form-heading">
-                                      <h4>Staff Edit : #{{ staff_selected.id }}</h4>
+                                      <h4>Editar Colaborador : #{{ staff_selected.id }}</h4>
                                   </div>
                               </div>
                               <div class="col-12 col-md-6 col-xl-4">
                                   <div class="form-group local-forms">
-                                      <label >First Name <span class="login-danger">*</span></label>
+                                      <label >Nombres <span class="login-danger">*</span></label>
                                       <input class="form-control" [(ngModel)] = "name" name="name" type="text"  >
                                   </div>
                               </div>
                               <div class="col-12 col-md-6 col-xl-4">
                                   <div class="form-group local-forms">
-                                      <label >Last Name <span class="login-danger">*</span></label>
+                                      <label >Apellidos <span class="login-danger">*</span></label>
                                       <input class="form-control" [(ngModel)] = "surname" name="surname" type="text"  >
                                   </div>
                               </div>
                               <div class="col-12 col-md-6 col-xl-4">
                                   <div class="form-group local-forms">
-                                      <label >Mobile <span class="login-danger">*</span></label>
-                                      <input class="form-control"  [(ngModel)] = "mobile" name="mobile" type="text"  >
+                                      <label >Teléfono <span class="login-danger">*</span></label>
+                                      <input class="form-control"  [(ngModel)] = "mobile" name="mobile" type="text" mask="0000-0000"  >
                                   </div>
                               </div>
                               <div class="col-12 col-md-6 col-xl-6">
                                   <div class="form-group local-forms">
-                                      <label >Email <span class="login-danger">*</span></label>
+                                      <label >Correo <span class="login-danger">*</span></label>
                                       <input class="form-control"  [(ngModel)] = "email" name="email" type="email"  >
                                   </div>
                               </div>
@@ -64,15 +64,15 @@
                               </div>
                               <div class="col-12 col-md-6 col-xl-6">
                                   <div class="form-group local-forms">
-                                      <label >Date Of Birth  <span class="login-danger">*</span></label>
-                                      <input class="form-control datetimepicker" [(ngModel)] = "birth_date" name="birth_date" type="text" matInput [matDatepicker]="picker"  >
+                                      <label >Fecha Nacimiento  <span class="login-danger">*</span></label>
+                                      <input class="form-control datetimepicker" [(ngModel)] = "birth_date" name="birth_date" type="text" matInput [matDatepicker]="picker" placeholder="MM/DD/AAAA" >
                                       <mat-datepicker #picker></mat-datepicker>
                                       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                                   </div>
                               </div>
                               <div class="col-12 col-md-6 col-xl-6">
                                   <div class="form-group select-gender">
-                                      <label class="gen-label">Gender<span class="login-danger">*</span></label>
+                                      <label class="gen-label">Género<span class="login-danger">*</span></label>
                                       <div class="form-check-inline">
                                           <label class="form-check-label">
                                               <input type="radio" name="gender" [value]="1" [(ngModel)] = "gender" class="form-check-input">Male
@@ -87,13 +87,13 @@
                               </div>
                               <div class="col-12 col-md-6 col-xl-4">
                                   <div class="form-group local-forms">
-                                      <label >Education <span class="login-danger">*</span></label>
+                                      <label >Educatción <span class="login-danger">*</span></label>
                                       <input class="form-control"  [(ngModel)] = "education" name="education" type="text"  >
                                   </div>
                               </div>
                               <div class="col-12 col-md-6 col-xl-4">
                                   <div class="form-group local-forms">
-                                      <label >Designation <span class="login-danger">*</span></label>
+                                      <label >Asignaciones <span class="login-danger">*</span></label>
                                       <input class="form-control"  [(ngModel)] = "designation" name="designation" type="text"  >
                                   </div>
                               </div>
@@ -109,16 +109,16 @@
                               </div>
                               <div class="col-12 col-sm-12">
                                   <div class="form-group local-forms">
-                                      <label>Address  <span class="login-danger">*</span></label>
+                                      <label>Dirección  <span class="login-danger">*</span></label>
                                       <textarea class="form-control"  [(ngModel)] = "address" name="address" rows="3" cols="30"></textarea>
                                   </div>
                               </div>
                               <div class="col-12 col-md-6 col-xl-6">
                                   <div class="form-group local-top-form">
-                                      <label class="local-top">Avatar <span class="login-danger">*</span></label>
+                                      <label class="local-top">Foto <span class="login-danger">*</span></label>
                                       <div class="settings-btn upload-files-avator">
                                           <input type="file" accept="image/*" name="image" id="file" (change)="loadFile($event)" class="hide-input">
-                                          <label for="file" class="upload">Choose File</label>
+                                          <label for="file" class="upload">Seleccionar archivo</label>
                                       </div>
                                   </div>
                                   <div class="" *ngIf="IMAGEN_PREVISUALIZA">

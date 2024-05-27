@@ -283,8 +283,11 @@ export class routes {
   public static get setting(): string {
     return this.baseUrl + '/setting';
   }
+  // public static get settings(): string {
+  //   return this.baseUrl + '/settings/general-settings';
+  // }
   public static get settings(): string {
-    return this.baseUrl + '/settings/general-settings';
+    return this.baseUrl + '/setting-m/list-setting';
   }
   public static get bankSettings(): string {
     return this.baseUrl + '/settings/bank-settings';
@@ -363,5 +366,12 @@ export class routes {
   }
   public static get listadoRole(): string {
     return this.baseUrl + '/roles/list';
+  }
+////
+  public static get addClinic(): string {
+    return this.baseUrl + '/clinics/add-clinic';
+  }
+  public static get listClinic(): string {
+    return this.baseUrl + '/clinics/list-clinic';
   }
 }

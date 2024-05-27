@@ -1,7 +1,7 @@
+import { Component } from '@angular/core';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import { Component, OnInit } from '@angular/core';
 import { AppointmentPayService } from '../../appointment-pay/service/appointment-pay.service';
 import { CalendarAppointmentService } from '../service/calendar-appointment.service';
 
@@ -10,34 +10,28 @@ import { CalendarAppointmentService } from '../service/calendar-appointment.serv
   templateUrl: './appointment-calendar.component.html',
   styleUrls: ['./appointment-calendar.component.scss']
 })
-export class AppointmentCalendarComponent implements OnInit{
-  //public routes = routes;
+export class AppointmentCalendarComponent {
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   options: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   events: any[] = [];
 
-  public specialities:any = [];
+  public specialities:any  = [];
   public specialitie_id = '';
   public search_doctor = '';
   public search_patient = '';
 
   public user:any;
-
-
   constructor(
     public appointmentPayService: AppointmentPayService,
-    public calendarAppointmentService: CalendarAppointmentService
-
-
+    public appointmentCalendarService: CalendarAppointmentService,
   ) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     // this.data.getEvents().subscribe((events: any) => {
     //   this.events = events;
     //   this.options = { ...this.options, ...{ events: events.data } };
     // });
-
-
     this.options = {
       plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
       initialDate: new Date(),
@@ -47,9 +41,9 @@ export class AppointmentCalendarComponent implements OnInit{
         right: 'dayGridMonth,timeGridWeek,timeGridDay',
       },
       initialView: 'dayGridMonth',
-      editable: true,
-      selectable: true,
-      selectMirror: true,
+      editable: false,
+      selectable: false,
+      selectMirror: false,
       dayMaxEvents: true,
       events: [
         { title: 'Meeting', start: new Date() }
@@ -57,46 +51,42 @@ export class AppointmentCalendarComponent implements OnInit{
     };
   }
 
-  ngOnInit(): void {
-    this.appointmentPayService.listConfig().subscribe((resp:any) => {
-      this.specialities=resp.specialities
-    });
-    this.user = this.appointmentPayService.authService.user;
-    this.calendarAppointment();
-  }
-
   isPermited(){
     let band = false;
     this.user.roles.forEach((rol:any) => {
-      if ((rol).toUpperCase().indexOf("DOCTOR") != -1){
-        band= true;
+      if((rol).toUpperCase().indexOf("DOCTOR") != -1){
+        band = true;
       }
     });
     return band;
   }
 
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    this.appointmentPayService.listConfig().subscribe((resp:any) => {
+      this.specialities = resp.specialities;
+      
+    })
+    this.user = this.appointmentPayService.authService.user;
+    this.calendarAppointment();
+  }
 
-  calendarAppointment(){
 
-    const data= {
+
+  calendarAppointment() {
+    let data = {
       specialitie_id: this.specialitie_id,
       search_doctor: this.search_doctor,
       search_patient: this.search_patient,
     }
-
-    this.calendarAppointmentService.calendarAppointment(data).subscribe((resp:any) => {
-      console.log(resp)
-      this.options = { ...this.options, ...{ events: resp.appointments } };
-
+    this.appointmentCalendarService.calendarAppointment(data).subscribe((resp:any) => {
+      console.log(resp);
+       this.options = { ...this.options, ...{ events: resp.appointments} };
     })
-
-
   }
+
   searchData(){
-
-
     this.calendarAppointment();
-
   }
-
 }

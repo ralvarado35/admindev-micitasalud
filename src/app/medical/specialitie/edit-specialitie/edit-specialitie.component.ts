@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SpecialitieService } from '../service/specialitie.service';
+import { routes } from 'src/app/shared/routes/routes';
 
 @Component({
   selector: 'app-edit-specialitie',
@@ -9,7 +10,7 @@ import { SpecialitieService } from '../service/specialitie.service';
 })
 export class EditSpecialitieComponent {
 
-  
+
   name:string = '';
   state:number = 1;
   valid_form: boolean = false;
@@ -20,8 +21,9 @@ export class EditSpecialitieComponent {
   constructor(
     public specialitieService: SpecialitieService,
     public activedRoute: ActivatedRoute,
+    private router: Router
   ) {
-    
+
   }
   ngOnInit(): void {
     this.activedRoute.params.subscribe((resp:any) => {
@@ -56,7 +58,9 @@ export class EditSpecialitieComponent {
         this.text_validation = resp.message_text;
         return ;
       }
+      this.router.navigate([routes.departmentList])
       this.valid_form_success = true;
+
     })
   }
 }

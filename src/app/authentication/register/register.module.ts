@@ -16,4 +16,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     SharedModule
   ]
 })
-export class RegisterModule { }
+export class RegisterModule {
+
+
+
+}

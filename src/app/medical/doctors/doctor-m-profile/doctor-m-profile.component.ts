@@ -1,6 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { DoctorService } from '../service/doctor.service';
+import { AuthService } from 'src/app/shared/auth/auth.service';
 
 @Component({
   selector: 'app-doctor-m-profile',
@@ -21,22 +22,27 @@ export class DoctorMProfileComponent implements OnInit {
   password = '';
   password_confirmation = '';
 
-  num_appointments=0;
+  num_appointment=0;
   money_of_appointments=0;
   num_appointment_pendings=0;
   doctor_selected: any;
-  appointment_pending:any = [];
+  appointment_pendings:any = [];
   appointments:any = [];
 
   text_validation = '';
   text_success  = '';
 
+  user:any
+
   constructor(
     public doctorService: DoctorService,
-    public activatedRoute: ActivatedRoute
+    public activatedRoute: ActivatedRoute,
+    public authService: AuthService
   ){}
 
   ngOnInit(): void {
+
+    this.user = this.authService.user;
 
     this.activatedRoute.params.subscribe((resp:any) => {
       console.log(resp);
@@ -44,12 +50,12 @@ export class DoctorMProfileComponent implements OnInit {
     })
     this.doctorService.profileDoctor(this.doctor_id).subscribe((resp:any) => {
       console.log(resp)
-      this.num_appointments = resp.num_appointments
+      this.num_appointment = resp.num_appointment
       this.money_of_appointments = resp.money_of_appointments
       this.num_appointment_pendings = resp.num_appointment_pendings
 
       this.doctor_selected = resp.doctor
-      this.appointment_pending = resp.appointment_pending.data
+      this.appointment_pendings = resp.appointment_pendings.data
       this.appointments = resp.appointments
 
       this.name = this.doctor_selected.name
@@ -64,6 +70,16 @@ export class DoctorMProfileComponent implements OnInit {
 
   optionSelected(value:number){
     this.option_selected = value;
+  }
+
+ isPermited(){
+    let band = false;
+    this.user.roles.forEach((rol:any) => {
+      if ((rol).toUpperCase().indexOf("DOCTOR") != -1){
+        band= true;
+      }
+    });
+    return band;
   }
 
   update(){

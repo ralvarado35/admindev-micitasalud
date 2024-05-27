@@ -14,23 +14,52 @@ export class LoginComponent implements OnInit {
   public passwordClass = false;
   public ERROR = false;
 
+  user: any
+  imgClinic: any
+  logoClinic: any
+  clinic: any
+
+
   form = new FormGroup({
-    email: new FormControl('admin@dreamguys.in', [
+    //clinic: new FormControl('', [Validators.required]),
+    email: new FormControl('', [
       Validators.required,
       Validators.email,
     ]),
-    password: new FormControl('123456', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
   });
 
   get f() {
     return this.form.controls;
   }
 
-  constructor(public auth: AuthService, public router: Router) {}
-  ngOnInit(): void {
+  constructor(
+
+    public auth: AuthService,
+     public router: Router) {}
+
+     ngOnInit(): void {
+
+      this.imgClinic = 'assets/img/logo-03.png'
+      this.logoClinic = 'assets/img/login-logo.png'
+
+
+
     if (localStorage.getItem('authenticated')) {
       //localStorage.removeItem('authenticated');
-      this.router.navigate([routes.adminDashboard]);
+       this.user = this.auth.user
+
+        let doctor = false;
+        this.user.roles.forEach((rol:any) => {
+          if ((rol).toUpperCase().indexOf("DOCTOR") != -1){
+            doctor= true;
+          }
+        });
+        if (doctor){
+          this.router.navigate([routes.doctorDashboard]);
+        }else{
+          this.router.navigate([routes.adminDashboard]);
+        }
     }
   }
 

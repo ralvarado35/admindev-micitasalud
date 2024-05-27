@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AtencionMedicalComponent } from './atencion-medical/atencion-medical.component';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 
 @NgModule({
@@ -29,7 +30,12 @@ import { AtencionMedicalComponent } from './atencion-medical/atencion-medical.co
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule
-  ]
+    RouterModule,
+    NgxMaskDirective,
+    NgxMaskPipe
+  ],
+  providers: [   
+    provideNgxMask()   
+],
 })
 export class AppointmentModule { }

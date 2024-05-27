@@ -23,31 +23,31 @@
                     ><img src="assets/img/login-logo.png" alt=""
                   /></a>
                 </div>
-                <h2>Getting Started</h2>
+                <h2>Crear Clínica/Hospital</h2>
                 <!-- Form -->
                 <form [formGroup]="form" (ngSubmit)="submit()">
                   <div class="form-group">
-                    <label>Full Name <span class="login-danger">*</span></label>
+                    <label>Nombre Clinica/Hospital <span class="login-danger">*</span></label>
                     <input
                       class="form-control"
                       type="text"
-                      formControlName="fullName"
+                      formControlName="name_clinic"
                       [ngClass]="{
                         'is-invalid':
-                          f['fullName'].touched && f['fullName'].invalid
+                          f['name_clinic'].touched && f['name_clinic'].invalid
                       }"
                     />
                     <div
-                      *ngIf="f['fullName'].touched && f['fullName'].invalid"
+                      *ngIf="f['name_clinic'].touched && f['name_clinic'].invalid"
                       class="invalid-feedback"
                     >
                       <div
                         *ngIf="
-                          f['fullName'].errors &&
-                          f['fullName'].errors['required']
+                          f['name_clinic'].errors &&
+                          f['name_clinic'].errors['required']
                         "
                       >
-                        Name is required.
+                        Nombre Clinica es requerido.
                       </div>
                     </div>
                     <div *ngIf="CustomControler !== 0" class="invalid-feedback">
@@ -55,7 +55,62 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label>Email <span class="login-danger">*</span></label>
+                    <label>Nombre <span class="login-danger">*</span></label>
+                    <input   class="form-control"  type="text"
+                      formControlName="name"
+                      [ngClass]="{ 'is-invalid':
+                          f['name'].touched && f['name'].invalid
+                      }"
+                    />
+                    <div
+                      *ngIf="f['name'].touched && f['name'].invalid"
+                      class="invalid-feedback"
+                    >
+                      <div
+                        *ngIf="
+                          f['name'].errors &&
+                          f['name'].errors['required']
+                        "
+                      >
+                        Nombre es requerido.
+                      </div>
+                    </div>
+                    <div *ngIf="CustomControler !== 0" class="invalid-feedback">
+                      {{ CustomControler }}
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Apellido <span class="login-danger">*</span></label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      formControlName="surname"
+                      [ngClass]="{
+                        'is-invalid':
+                          f['surname'].touched && f['surname'].invalid
+                      }"
+                    />
+                    <div
+                      *ngIf="f['surname'].touched && f['surname'].invalid"
+                      class="invalid-feedback"
+                    >
+                      <div
+                        *ngIf="
+                          f['surname'].errors &&
+                          f['surname'].errors['required']
+                        "
+                      >
+                        Apellido es requerido.
+                      </div>
+                    </div>
+                    <div *ngIf="CustomControler !== 0" class="invalid-feedback">
+                      {{ CustomControler }}
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label>Correo <span class="login-danger">*</span></label>
                     <input
                       class="form-control"
                       type="text"
@@ -73,15 +128,20 @@
                           f['email'].errors && f['email'].errors['required']
                         "
                       >
-                        Email is required.
+                        Correo es requerido.
                       </div>
                       <div *ngIf="f['email'].errors && f['email'].errors['email']">
-                        Please, enter valid email address.
+                       Por favor, entre un correo válido.
                       </div>
+
                     </div>
                     <div *ngIf="CustomControler !== 0" class="invalid-feedback">
                       {{ CustomControler }}
                     </div>
+
+                    <div *ngIf="existEmail" class="login-danger" >
+                      Este correo ya existe en nuestra base de datos
+                     </div>
                   </div>
                   <div class="form-group">
                     <label>Password <span class="login-danger">*</span></label>
@@ -104,7 +164,7 @@
                           f['password'].errors['required']
                         "
                       >
-                        Password is required.
+                        Password es requerido.
                       </div>
                     </div>
                     <span (click)="passwordFunc()" [ngClass] = "passwordClass ? 'feather icon-eye' : 'feather icon-eye-off'"
@@ -113,7 +173,7 @@
                   </div>
                   <div class="form-group">
                     <label
-                      >Confirm Password
+                      >Confirmar Password
                       <span class="login-danger">*</span></label
                     >
                     <input
@@ -139,21 +199,23 @@
                           f['confirmPassword'].errors['required']
                         "
                       >
-                        Confirm Password is required.
+                        Confirmar Password es requerido.
                       </div>
                     </div>
-                    <div
-                      *ngIf="isValidConfirmPassword"
-                      class="invalid-feedback"
-                    >
-                      Password not matching
+                    <!-- <div *ngIf="isValidConfirmPassword" class="invalid-feedback" >
+                      Password no coinciden
+                    </div> -->
+                    <div *ngIf="isValidConfirmPassword" class="invalid-feedback">
+                        Password no coinciden
                     </div>
+
                     <span (click)="confirmPasswordFunc()" [ngClass] = "confirmPasswordClass ? 'feather icon-eye' : 'feather icon-eye-off'"
                       class="profile-views confirm-password"
                     ></span>
                   </div>
+
                   <div class="forgotpass">
-                    <div class="remember-me">
+                    <!-- <div class="remember-me">
                       <label
                         class="custom_check mr-2 mb-0 d-inline-flex remember-me"
                       >
@@ -164,28 +226,30 @@
                         <input type="checkbox" name="radio" />
                         <span class="checkmark"></span>
                       </label>
-                    </div>
+                    </div> -->
                   </div>
+
                   <div class="form-group login-btn">
                     <button
                       [disabled]="form.invalid"
                       class="btn btn-primary btn-block"
                       type="submit"
                     >
-                      Sign up
+                      Registrarse
                     </button>
                   </div>
+
                 </form>
                 <!-- /Form -->
 
                 <div class="next-sign">
                   <p class="account-subtitle">
-                    Already have account?
-                    <a [routerLink]="routes.login">Login</a>
+                    Ya tienes una cuenta?
+                    <a [routerLink]="routes.login">Ingresar</a>
                   </p>
 
                   <!-- Social Login -->
-                  <div class="social-login">
+                  <!-- <div class="social-login">
                     <a href="javascript:;"
                       ><img src="assets/img/icons/login-icon-01.svg" alt=""
                     /></a>
@@ -195,7 +259,7 @@
                     <a href="javascript:;"
                       ><img src="assets/img/icons/login-icon-03.svg" alt=""
                     /></a>
-                  </div>
+                  </div> -->
                   <!-- /Social Login -->
                 </div>
               </div>

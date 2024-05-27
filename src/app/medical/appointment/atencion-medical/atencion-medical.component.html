@@ -54,20 +54,29 @@
                                   <input class="form-control"  disabled [(ngModel)] = "n_document" name="n_document" type="text"  >
                               </div>
                           </div>
-
+<!-- 
                         <div class="col-12 col-sm-3">
                             <div class="form-group local-forms">
                                 <label>Nombre del Acompañante <span class="login-danger">*</span></label>
                                 <input class="form-control"  disabled [(ngModel)] = "name_companion" type="text" name="name_companion">
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div class="col-12 col-sm-3">
+                        <!-- <div class="col-12 col-sm-3">
                           <div class="form-group local-forms">
                               <label>Apellido del Acompañante  <span class="login-danger">*</span></label>
                               <input class="form-control"  disabled [(ngModel)] = "surname_companion"  type="text" name="surname_companion">
                           </div>
-                      </div>
+                      </div> -->
+                            </div>
+
+                            <div class="row align-items-center py-4">
+                                <div class="col-12 col-sm-8">
+                                  <div class="form-group local-forms">
+                                      <label>Motivo Consulta  <span class="login-danger">*</span></label>
+                                      <input class="form-control"   [(ngModel)] = "consult"  type="text" name="consult">
+                                  </div>
+                                </div>
                             </div>
 
                             <div class="row align-items-center">
@@ -84,10 +93,7 @@
                             <div class="row align-items-center">
                               <div class="col-6">
                                 <div class="row">
-                                  <div class="col-12 mb-3">
-                                          <button class="btn btn-primary btn-sm" (click)="addMedicamento()">+</button>
-                                          <!-- <button class="btn btn-danger btn-sm">x</button> -->
-                                  </div>
+                                 
 
                                     <div class="col-12">
                                       <div class="form-group local-forms">
@@ -100,6 +106,10 @@
                                         <label >Uso <span class="login-danger">*</span></label>
                                         <input class="form-control"  [(ngModel)] = "uso" name="uso" type="text"  >
                                       </div>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                      <button class="btn btn-primary btn-sm" (click)="addMedicamento()">+Agregar Medicamento</button>
+                                      <!-- <button class="btn btn-danger btn-sm">x</button> -->
                                     </div>
                                 </div>
                               </div>
@@ -133,9 +143,9 @@
 
                             </div>
 
-                            <div class="row align-items-center">
+                            <div class="row">
 
-                              <div class="col-12">
+                              <div class="col-6">                                
                                 <div class="form-group row" *ngIf="text_success">
                                   <div class="col-md-12">
                                     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -157,11 +167,30 @@
                                   </div>
                                 </div>
                               </div>
-                                <div class="col-12">
-                                  <div class="doctor-submit text-end">
-                                     <button type="button" (click)="save()"  class="btn btn-primary submit-form me-2">Actualizar</button>
+
+
+                              <div class="col-6">
+                               
+                                <div class="row">
+                                  <div class="col-4">
+                                    <div class="doctor-submit text-end">
+                                      <button type="button" (click)="save()" class="btn btn-warning submit-form me-2">Guardar Consulta</button>
+                                    </div>
                                   </div>
+                                  <div class="col-4">
+                                    <div class="doctor-submit text-end">
+                                      <button type="button" (click)="imprimir()" class="btn btn-success submit-form me-2">Imprimir Receta</button>
+                                    </div>
+                                  </div>                                
+                                  <div class="col-4">
+                                    <div class="doctor-submit text-end">
+                                      <!-- <button type="button" (click)="save()" class="btn btn-primary submit-form me-2">Regresar</button> -->
+                                      <a class="btn btn-primary" [routerLink]="['/appointment-m/list']">Regresar</a>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
+
                             </div>
                       </form>
                   </div>

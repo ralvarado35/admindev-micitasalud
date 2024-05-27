@@ -1,5 +1,5 @@
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
 import { PatientMService } from '../service/patient-m.service';
 
 @Component({
@@ -7,62 +7,47 @@ import { PatientMService } from '../service/patient-m.service';
   templateUrl: './patient-m-profile.component.html',
   styleUrls: ['./patient-m-profile.component.scss']
 })
-export class PatientMProfileComponent implements OnInit {
+export class PatientMProfileComponent {
   patientProfile:any = [];
-  option_selected =1;
+  option_selected:number = 1;
 
-  name ='';
-  surname ='';
-  mobile ='';
-  email ='';
-  address ='';
-  password ='';
-  password_confirmation ='';
-
-  patient_id='';
-  num_appointments=0;
-  money_of_appointments=0;
-  num_appointment_pendings=0;
-  patient_selected: any;
-  appointment_pending:any = [];
+  patient_id:string = '';
+  num_appointment:number = 0;
+  money_of_appointments:number = 0;
+  num_appointment_pendings:number = 0;
+  patient_selected:any;
+  appointment_pendings:any = [];
+  appointment_attentions:any = [];
   appointments:any = [];
-
-  text_validation = '';
-  text_success  = '';
+  public IMAGEN_PREVISUALIZA: any = 'assets/img/user-06.jpg';
 
   constructor(
     public patientService: PatientMService,
-    public activatedRoute: ActivatedRoute
-  ){}
+    public activedRoute: ActivatedRoute,
+  ) {
+
+  }
 
   ngOnInit(): void {
-
-    this.activatedRoute.params.subscribe((resp:any) => {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    this.activedRoute.params.subscribe((resp:any) => {
       console.log(resp);
       this.patient_id = resp.id;
     })
     this.patientService.profilePatient(this.patient_id).subscribe((resp:any) => {
-      console.log(resp)
-      this.num_appointments = resp.num_appointments
-      this.money_of_appointments = resp.money_of_appointments
-      this.num_appointment_pendings = resp.num_appointment_pendings
-      this.patient_selected = resp.patient
-      this.appointment_pending = resp.appointment_pending.data
-      this.appointments = resp.appointments
+      console.log(resp);
+      this.num_appointment = resp.num_appointment;
+      this.money_of_appointments = resp.money_of_appointments;
+      this.num_appointment_pendings = resp.num_appointment_pendings;
+      this.patient_selected = resp.patient;
+      this.appointment_attentions = resp.appointment_attentions.data;
+      this.appointment_pendings = resp.appointment_pendings.data;
+      this.appointments = resp.appointments;
     })
   }
 
   optionSelected(value:number){
     this.option_selected = value;
-    console.log(this.option_selected)
   }
-
-  update(){
-
-  }
-
-
-
-
-
 }

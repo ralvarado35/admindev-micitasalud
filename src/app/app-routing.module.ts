@@ -3,6 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 // import { AuthGuard } from './shared/gaurd/auth.guard';
 
 const routes: Routes = [
+  // {
+  //   path: '',
+  //   pathMatch: 'full',
+  //   redirectTo: 'clinic',
+  // },
   {
     path: '',
     pathMatch: 'full',
@@ -39,7 +44,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  //imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    useHash: true, // <- Indicar que se use el hash
+  })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

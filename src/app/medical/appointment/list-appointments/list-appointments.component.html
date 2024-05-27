@@ -20,84 +20,98 @@
 
               <div class="card card-table show-entire">
                   <div class="card-body">
-
                       <!-- Table Header -->
-                      <div class="page-table-header mb-2">
+                      <div class="page-table-header mb-2">                        
+                        <div class="row align-items-center">
+                          <div class="col">
+                            <h3>Listado Citas</h3>                                  
+                          </div>                        
+                        </div>
                           <div class="row align-items-center">
-                               <div class="col">
-                                      <div class="doctor-table-blk">
-                                          <h3>Listado Citas</h3>
-                                          <div class="doctor-search-blk">
-                                              <div class="top-nav-search table-search-blk">
-                                                      <input  class="form-control" placeholder="Doctor" [(ngModel)]="searchDataValue"
-                                                      (keyup.enter)="searchData()">
-                                                      <a class="btn"><img src="assets/img/icons/search-normal.svg" alt=""></a>
-                                              </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col">
-                                <div class="form-group local-forms" *ngIf="!isPermited()">
-                                  <label >Especialidades <span class="login-danger">*</span></label>
-                                  <mat-select [(ngModel)]="specialitie_id" [ngModelOptions]="{standalone: true}" class="form-control select"  placeholder="Seleccione Especialidad">
-                                      <mat-option *ngFor="let data of specialities" [value]="data.id">
-                                      {{data.name}}
-                                      </mat-option>
-                                  </mat-select>
-                              </div>
-                          </div>
-
-                          <div class="col">
-                            <div class="form-group local-forms">
-                              <label >Fecha <span class="login-danger">*</span></label>
-                              <input class="form-control datetimepicker" [(ngModel)] = "date" name="date" type="date"  >
-                          </div>
-
-
-                          </div>
-
-                          <div class="col">
-                            <div class="add-group">
-                              <a href="#" onclick="return false;"  (click)="searchData()" class="btn btn-dark add-pluss ms-2">Filtro</a>
-                              <a routerLink="/appointment-m/register" class="btn btn-primary add-pluss ms-2"><img src="assets/img/icons/plus.svg" alt=""></a>
-                              <a href="javascript:;" (click)="PageSize()"  class="btn btn-primary doctor-refresh ms-2"><img src="assets/img/icons/re-fresh.svg" alt=""></a>
+                            <div class="col">
+                              <div class="doctor-search-blk">
+                                <div class="top-nav-search table-search-blk">
+                                        <input  class="form-control" placeholder="Doctor" [(ngModel)]="searchDataValue"
+                                        (keyup.enter)="searchData()">
+                                        <a class="btn"><img src="assets/img/icons/search-normal.svg" alt=""></a>
+                                </div>
+                                <div class="top-nav-search table-search-blk">
+                                      <input  class="form-control" placeholder="Paciente" [(ngModel)]="searchPatient"
+                                      (keyup.enter)="searchData()">
+                                      <a class="btn"><img src="assets/img/icons/search-normal.svg" alt=""></a>
+                                </div>
                             </div>
-
+                            </div>
                           </div>
-                              <div class="col-auto text-end float-end ms-auto download-grp">
-                                  <a href="javascript:;" class=" me-2"><img src="assets/img/icons/pdf-icon-01.svg" alt=""></a>
-                                  <a href="javascript:;" class=" me-2"><img src="assets/img/icons/pdf-icon-02.svg" alt=""></a>
-                                  <a href="javascript:;" class=" me-2"><img src="assets/img/icons/pdf-icon-03.svg" alt=""></a>
-                                  <a href="javascript:;" ><img src="assets/img/icons/pdf-icon-04.svg" alt=""></a>
-
+                          <br>                          
+                          <div class="row align-items-center"> 
+                            <div class="col">
+                              <div class="form-group local-forms" *ngIf="!isPermited()">
+                                <label >Especialidades <span class="login-danger">*</span></label>
+                                <mat-select [(ngModel)]="specialitie_id" [ngModelOptions]="{standalone: true}" class="form-control select"  placeholder="Seleccione Especialidad">
+                                    <mat-option *ngFor="let data of specialities" [value]="data.id">
+                                    {{data.name}}
+                                    </mat-option>
+                                </mat-select>
                               </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group local-forms">
+                                <label >Fecha <span class="login-danger">*</span></label>
+                                <input class="form-control datetimepicker" [(ngModel)] = "date" name="date" type="date"  >
+                              </div> 
+                            </div>
+                            <div class="col">
+                              <div class="add-group">
+                                <a href="#" onclick="return false;"  (click)="searchData()" class="btn btn-dark add-pluss ms-2">Filtro</a>
+                                <a routerLink="/appointment-m/register" class="btn btn-primary add-pluss ms-2"><img src="assets/img/icons/plus.svg" alt=""></a>
+                                <a href="javascript:;" (click)="PageSize()"  class="btn btn-primary doctor-refresh ms-2"><img src="assets/img/icons/re-fresh.svg" alt=""></a>
+                              </div>     
+                            </div>
                           </div>
                       </div>
                       <!-- /Table Header -->
-
                       <div class="table-responsive">
                           <table matSort (matSortChange)="sortData($event)" class="table border-0 custom-table comman-table datatable mb-0">
                               <thead>
                                   <tr>
-                                      <th mat-sort-header="name">Doctor</th>
-                                      <th mat-sort-header="email">Paciente</th>
-                                      <th mat-sort-header="mobile">Fecha</th>
-                                      <th mat-sort-header="birth_date">Hora</th>
-                                      <th mat-sort-header="n_document">Especialidad</th>
-                                      <th mat-sort-header="status">Status</th>
-                                      <th mat-sort-header="created_at">Fecha de registro</th>
+                                    <ng-container *ngIf="!isPermited()">
+                                      <th mat-sort-header="doctor">Doctor</th>
+                                      <th mat-sort-header="especialidad">Especialidad</th>
+                                    </ng-container>
+
+                                      <th mat-sort-header="paciente">Paciente</th>
+                                      <!-- <th mat-sort-header="mobil">Teléfono</th> -->
+
+                                      <!-- <th mat-sort-header="consulta">Consulta</th> -->
+
+                                      <th mat-sort-header="fecha">Fecha</th>
+                                      <th mat-sort-header="hora">Hora</th>
+
+                                      <th mat-sort-header="status">Estado</th>
+                                      <!-- <th mat-sort-header="created_at">Fecha de registro</th> -->
                                       <th ></th>
                                   </tr>
                               </thead>
                               <tbody>
                                   <tr *ngFor="let data of appointmentList">
+                                    <ng-container  *ngIf="!isPermited()">
                                       <td>{{ data.doctor.full_name }}</td>
-                                      <td>{{ data.patient.full_name }}</td>
+                                      <td>{{data.specialitie.name }}</td>
+                                    </ng-container>
+                                     <td class="profile-image"><a  [routerLink]="['/patient-m/list/profile/', data.patient_id ]"><img width="28" height="28" [src]="data.patient.avatar ? data.patient.avatar : '../../../../assets/img/user.jpg' " class="rounded-circle m-r-5" alt=""> {{ data.patient.full_name }}</a></td>
+                                     <!-- <td>  <a href='https://wa.me/503{{data.patient.mobile}}'><img src="../../../../assets/img/whatsapp.png" alt="" width="50px">{{data.patient.mobile}}</a></td> -->
+                                     <!-- <td>{{data.patient.mobile}}</td> -->
+
+                                     <!-- <td>{{data.consult }}</td> -->
+
+                                      <!-- <td>{{ data.patient.full_name }}</td> -->
+
                                       <td>{{ data.date_appointment_format }}</td>
                                       <td>{{ data.segment_hour.format_segment.format_hour_start + ' - ' + data.segment_hour.format_segment.format_hour_end  }} </td>
-                                      <td>{{data.specialitie.name }}</td>
-                                      <td><button [ngClass]="{'status-pink' : data.status === 1, 'status-green' : data.status === 2}" class="custom-badge">{{ data.status === 1 ? 'PENDIENTE': 'ATENDIDO' }}</button></td>
-                                      <td>{{data.created_at}}</td>
+
+                                      <td><button *ngIf="isPermision('attention_appointment')" [routerLink]="['/appointment-m/list/atencion-medica/', data.id ]"  [ngClass]="{'status-pink' : data.status === 1, 'status-green' : data.status === 2}" class="custom-badge">{{ data.status === 1 ? 'PENDIENTE': 'ATENDIDO' }}</button></td>
+                                      <!-- <td>{{data.created_at}}</td> -->
                                       <td class="text-end">
                                           <div class="dropdown dropdown-action" *ngIf="data.id !== 1">
                                               <a href="javascript:void(0);" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>

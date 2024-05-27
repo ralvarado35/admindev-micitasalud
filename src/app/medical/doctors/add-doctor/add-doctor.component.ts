@@ -1,6 +1,8 @@
 import { AnnotationStyle } from 'ng-apexcharts';
 import { Component } from '@angular/core';
 import { DoctorService } from '../service/doctor.service';
+import { Router } from '@angular/router';
+import { routes } from 'src/app/shared/routes/routes';
 
 @Component({
   selector: 'app-add-doctor',
@@ -58,7 +60,10 @@ export class AddDoctorComponent {
   public hours_days: any = [];
   public hours_selecteds: any = [];
 
-  constructor(public doctorService: DoctorService) {}
+  constructor(
+    public doctorService: DoctorService,
+    private router: Router
+    ) {}
 
   ngOnInit(): void {
     this.doctorService.listConfig().subscribe((resp: any) => {
@@ -75,11 +80,11 @@ export class AddDoctorComponent {
       !this.name ||
       !this.email ||
       !this.surname ||
-      !this.FILE_AVATAR ||
+      //!this.FILE_AVATAR ||
       !this.password
     ) {
       this.text_validation =
-        ' LOS CAMPOS SON NECESARIOS (name, surname, email, avatar)';
+        ' LOS CAMPOS SON NECESARIOS (Nombre, Apellido, Correo)';
       return;
     }
 
@@ -126,23 +131,23 @@ export class AddDoctorComponent {
         this.text_validation = resp.message_text;
       } else {
         this.text_success = ' El usuario ha sido registrado correctamente';
-
-        this.name = '';
-        this.surname = '';
-        this.email = '';
-        this.mobile = '';
-        this.birth_date = '';
-        this.gender = 1;
-        this.education = '';
-        this.designation = '';
-        this.address = '';
-        this.password = '';
-        this.password_confirmation = '';
-        this.selectedValue = '';
-        this.specialitie_id = '';
-        this.FILE_AVATAR = null;
-        this.IMAGEN_PREVISUALIZA = null;
-        this.hours_selecteds = [];
+        //this.router.navigate([routes.doctorsList])
+        // this.name = '';
+        // this.surname = '';
+        // this.email = '';
+        // this.mobile = '';
+        // this.birth_date = '';
+        // this.gender = 1;
+        // this.education = '';
+        // this.designation = '';
+        // this.address = '';
+        // this.password = '';
+        // this.password_confirmation = '';
+        // this.selectedValue = '';
+        // this.specialitie_id = '';
+        // this.FILE_AVATAR = null;
+        // this.IMAGEN_PREVISUALIZA = null;
+        // this.hours_selecteds = [];
       }
     });
   }

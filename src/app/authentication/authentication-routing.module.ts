@@ -3,7 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthenticationComponent } from './authentication.component';
 
 const routes: Routes = [
-  { path: '', component: AuthenticationComponent,
+  {
+  path: '',
+  component: AuthenticationComponent,
   children: [
     {
       path: '',
@@ -15,6 +17,7 @@ const routes: Routes = [
       loadChildren: () =>
         import('./login/login.module').then((m) => m.LoginModule),
     },
+   
     {
       path: 'forgot-password',
       loadChildren: () =>
@@ -41,8 +44,15 @@ const routes: Routes = [
           (m) => m.LockScreenModule
         ),
     },
+
+
+
+
+
   ],
 },
+
+
 ];
 
 @NgModule({

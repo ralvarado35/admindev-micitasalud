@@ -53,6 +53,19 @@ const routes: Routes = [
         loadChildren: () =>
           import('./calendar-appointment/calendar-appointment.module').then((m) => m.CalendarAppointmentModule),
       },
+      {
+        path: 'setting-m',
+        loadChildren: () =>
+          import('./setting-m/setting-m.module').then((m) => m.SettingMModule),
+      },
+
+      {
+        path: 'clinics',
+        loadChildren: () =>
+          import('./clinic/clinic.module').then((m) => m.ClinicModule),
+      },
+
+
     ],
   },
 ];

@@ -15,6 +15,7 @@ export class RolesService {
 
   listRoles(){
     const headers = new HttpHeaders({'Authorization': 'Bearer '+this.authService.token})
+    
     const URL = URL_SERVICIOS + "/roles";
     return this.http.get(URL, {headers: headers})
   }

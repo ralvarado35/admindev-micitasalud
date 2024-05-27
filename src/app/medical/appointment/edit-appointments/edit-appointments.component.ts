@@ -20,7 +20,7 @@ export class EditAppointmentsComponent {
   n_document='';
   name_companion='';
   surname_companion='';
-  
+
   amount=0;
   amount_add=0;
   method_payment='';
@@ -30,6 +30,7 @@ export class EditAppointmentsComponent {
   selected_segment_hour:any;
   text_success='';
   text_validation='';
+  text_no_disponibilidad='';
   appointment_id = '';
   appointment_selected: any;
 
@@ -76,6 +77,9 @@ export class EditAppointmentsComponent {
 
   save(){
 
+    // eslint-disable-next-line no-debugger
+    debugger
+
     this.text_validation = "";
 
 
@@ -91,10 +95,12 @@ export class EditAppointmentsComponent {
        }
      }
 
+
+
     //  || !this.selected_segment_hour
 
     const data = {
-        "doctor_id":  this.DOCTOR_SELECTED.doctor.id,
+        "doctor_id":  this.DOCTOR_SELECTED ? this.DOCTOR_SELECTED.doctor_id :  this.appointment_selected.doctor_id,
         "date_appointment": this.date_appointment,
         "specialitie_id": this.specialitie_id,
         "doctor_schedule_join_hour_id": this.selected_segment_hour ? this.selected_segment_hour.id : this.appointment_selected.doctor_schedule_join_hour_id,
@@ -121,6 +127,7 @@ export class EditAppointmentsComponent {
   }
 
   filtro(){
+    this.text_no_disponibilidad="";
     const data = {
       date_appointment: this.date_appointment,
       hour: this.hour,
@@ -129,6 +136,10 @@ export class EditAppointmentsComponent {
     this.appointmentService.listFilter(data).subscribe((resp:any) => {
       console.log(resp);
       this.DOCTORS = resp.doctors;
+      if  (this.DOCTORS.length === 0){
+        this.text_no_disponibilidad="NO HAY DOCTORES DISPONIBLES CON ESTA ESPECIALIDAD EN ESTE HORARIO";
+      }
+
 
       // this.DOCTORS.forEach((doctor:any) => {
       //   if(doctor.doctor.id == this.appointment_selected.doctor_id){
@@ -164,8 +175,10 @@ export class EditAppointmentsComponent {
     return SEGMENTS.length;
   }
 
-  showSegment(DOCTOR:any){
-     this.DOCTOR_SELECTED = DOCTOR;
+  showSegment(DOCTOR: any) {
+
+    this.DOCTOR_SELECTED = DOCTOR;
+    //console.log(DOCTOR_SELECTED)
 
   }
 

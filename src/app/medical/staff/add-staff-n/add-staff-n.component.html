@@ -6,9 +6,9 @@
           <div class="row">
               <div class="col-sm-12">
                   <ul class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="#">Usuarios </a></li>
+                      <li class="breadcrumb-item"><a href="#">Personal </a></li>
                       <li class="breadcrumb-item"><i class="feather icon-chevron-right"></i></li>
-                      <li class="breadcrumb-item active">Agregar Usuario</li>
+                      <li class="breadcrumb-item active">Agregar Personal</li>
                   </ul>
               </div>
           </div>
@@ -23,7 +23,7 @@
                           <div class="row">
                               <div class="col-12">
                                   <div class="form-heading">
-                                      <h4>Agregar Usuario</h4>
+                                      <h4>Agregar Personal</h4>
                                   </div>
                               </div>
                               <div class="col-12 col-md-6 col-xl-4">
@@ -41,7 +41,7 @@
                               <div class="col-12 col-md-6 col-xl-4">
                                   <div class="form-group local-forms">
                                       <label >Teléfono <span class="login-danger">*</span></label>
-                                      <input class="form-control"  [(ngModel)] = "mobile" name="mobile" type="text"  >
+                                      <input class="form-control"  [(ngModel)] = "mobile" name="mobile" type="text" mask="0000-0000"  >
                                   </div>
                               </div>
                               <div class="col-12 col-md-6 col-xl-6">
@@ -53,19 +53,19 @@
                               <div class="col-12 col-md-6 col-xl-6">
                                   <div class="form-group local-forms">
                                       <label >Password <span class="login-danger">*</span></label>
-                                      <input class="form-control"  [(ngModel)] = "password" name="password" type="password"  >
+                                      <input class="form-control"  [(ngModel)] = "password" name="password" type="password" autocomplete="off" >
                                   </div>
                               </div>
                               <div class="col-12 col-md-6 col-xl-6">
                                   <div class="form-group local-forms">
                                       <label >Confirmar Password <span class="login-danger">*</span></label>
-                                      <input class="form-control" [(ngModel)] = "password_confirmation" name="password_confirmation" type="password"  >
+                                      <input class="form-control" [(ngModel)] = "password_confirmation" name="password_confirmation" type="password" autocomplete="off" >
                                   </div>
                               </div>
                               <div class="col-12 col-md-6 col-xl-6">
                                   <div class="form-group local-forms">
                                       <label >Fecha Nacimiento <span class="login-danger">*</span></label>
-                                      <input class="form-control datetimepicker" [(ngModel)] = "birth_date" name="birth_date" type="text" matInput [matDatepicker]="picker"  >
+                                      <input class="form-control datetimepicker" [(ngModel)] = "birth_date" name="birth_date" type="text" matInput [matDatepicker]="picker" placeholder="MM/DD/AAAA" >
                                       <mat-datepicker #picker></mat-datepicker>
                                       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                                   </div>
@@ -75,12 +75,12 @@
                                       <label class="gen-label">Género<span class="login-danger">*</span></label>
                                       <div class="form-check-inline">
                                           <label class="form-check-label">
-                                              <input type="radio" name="gender" value="1" [(ngModel)] = "gender" class="form-check-input">Male
+                                              <input type="radio" name="gender" value="1" [(ngModel)] = "gender" class="form-check-input">Masculino
                                           </label>
                                       </div>
                                       <div class="form-check-inline">
                                           <label class="form-check-label">
-                                              <input type="radio" name="gender" value="2" [(ngModel)] = "gender" class="form-check-input">Female
+                                              <input type="radio" name="gender" value="2" [(ngModel)] = "gender" class="form-check-input">Femenino
                                           </label>
                                       </div>
                                   </div>

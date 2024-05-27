@@ -206,7 +206,7 @@ export class EditPatientMComponent {
 
    this.patientService.updatePatient(this.patient_id, formData).subscribe((resp:any)=>{
     // eslint-disable-next-line no-debugger
-    debugger
+    //debugger
      console.log(resp)
      if (resp.message === 403){
        this.text_validation = resp.message_text;

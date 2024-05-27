@@ -51,6 +51,16 @@ export class ListDoctorComponent {
     });
   }
 
+  isPermited(){
+    let band = false;
+    this.user.roles.forEach((rol:any) => {
+      if ((rol).toUpperCase().indexOf("DOCTOR") != -1){
+        band= true;
+      }
+    });
+    return band;
+  }
+  
   isPermision(permission=''){
     if (this.user.roles.includes('Super-Admin')){
       return true;

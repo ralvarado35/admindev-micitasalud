@@ -15,9 +15,14 @@ export class HeaderComponent {
   public miniSidebar  = false;
   public addClass = false;
   public user:any;
+  public IMAGEN_PREVISUALIZA: any = 'assets/img/user-06.jpg';
 
-  constructor(public router: Router,private sideBar: SideBarService, public auth:AuthService) {
-    this.sideBar.toggleSideBar.subscribe((res: string) => {
+  constructor(
+    public router: Router,
+    private sideBar: SideBarService,
+     public auth:AuthService) {
+
+      this.sideBar.toggleSideBar.subscribe((res: string) => {
       if (res == 'true') {
         this.miniSidebar = true;
       } else {
@@ -27,6 +32,34 @@ export class HeaderComponent {
     const USER = localStorage.getItem("user")
     this.user = JSON.parse(USER ? USER: '');
     console.log(this.user)
+   // localStorage.setItem('clinic_id', this.user.clinic_id)
+
+    if (this.user.avatar){
+      this.IMAGEN_PREVISUALIZA = this.user.avatar
+    } else{
+      this.IMAGEN_PREVISUALIZA = 'assets/img/user-06.jpg'
+    }
+  }
+
+  isPermited(){
+    let band = false;
+    this.user.roles.forEach((rol:any) => {
+      if ((rol).toUpperCase().indexOf("DOCTOR") != -1){
+        band= true;
+      }
+    });
+    return band;
+  }
+
+
+  isPermision(permission=''){
+    if (this.user.roles.includes('Super-Admin')){
+      return true;
+    }
+    if (this.user.permissions.includes(permission)){
+      return true;
+    }
+    return false;
   }
 
   getRole(){

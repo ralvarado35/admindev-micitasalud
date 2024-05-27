@@ -1,6 +1,6 @@
 <div class="page-wrapper">
     <div class="content">
-    
+
         <!-- Page Header -->
         <div class="page-header">
             <div class="row">
@@ -16,7 +16,7 @@
         <!-- /Page Header -->
         <div class="row">
             <div class="col-sm-12">
-            
+
                 <div class="card">
                     <div class="card-body">
                         <form>
@@ -26,7 +26,7 @@
                                         <h4>Patient Details</h4>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-6 col-xl-4">  
+                                <div class="col-12 col-md-6 col-xl-4">
                                     <div class="form-group local-forms">
                                         <label >First Name <span class="login-danger">*</span></label>
                                         <input class="form-control" type="text" >
@@ -65,6 +65,7 @@
                                         <input class="form-control" type="email"  >
                                     </div>
                                 </div>
+                                
                                 <div class="col-12 col-sm-12">
                                     <div class="form-group local-forms">
                                         <label>Address  <span class="login-danger">*</span></label>
@@ -105,7 +106,7 @@
                                 <div class="col-12 col-md-6 col-xl-6">
                                     <div class="form-group local-forms">
                                         <label >Consulting Doctor</label>
-                                        
+
                                         <mat-select [(ngModel)]="selectedValue" [ngModelOptions]="{standalone: true}" class="form-control select"  placeholder="Select Doctor">
                                             <mat-option *ngFor="let data of selectedList" [value]="data.value">
                                             {{data.value}}
@@ -141,10 +142,12 @@
                                     </div>
                                 </div>
                             </div>
+
+
                         </form>
                     </div>
-                </div>							
-            </div>					
+                </div>
+            </div>
         </div>
     </div>
 </div>

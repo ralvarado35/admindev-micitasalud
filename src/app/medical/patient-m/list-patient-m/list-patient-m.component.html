@@ -8,7 +8,7 @@
                   <ul class="breadcrumb">
                       <li class="breadcrumb-item"><a href="#">Pacientes</a></li>
                       <li class="breadcrumb-item"><i class="feather icon-chevron-right"></i></li>
-                      <li class="breadcrumb-item active">Listado Pacientes</li>
+                      <li class="breadcrumb-item active">Lista Pacientes</li>
                   </ul>
               </div>
           </div>
@@ -26,7 +26,7 @@
                           <div class="row align-items-center">
                               <div class="col">
                                   <div class="doctor-table-blk">
-                                      <h3>Listado Pacientes</h3>
+                                      <h3>Lista Pacientes</h3>
                                       <div class="doctor-search-blk">
                                           <div class="top-nav-search table-search-blk">
                                                   <input  class="form-control" placeholder="Buscar paciente" [(ngModel)]="searchDataValue"
@@ -40,13 +40,13 @@
                                       </div>
                                   </div>
                               </div>
-                              <div class="col-auto text-end float-end ms-auto download-grp">
+                              <!-- <div class="col-auto text-end float-end ms-auto download-grp">
                                   <a href="javascript:;" class=" me-2"><img src="assets/img/icons/pdf-icon-01.svg" alt=""></a>
                                   <a href="javascript:;" class=" me-2"><img src="assets/img/icons/pdf-icon-02.svg" alt=""></a>
                                   <a href="javascript:;" class=" me-2"><img src="assets/img/icons/pdf-icon-03.svg" alt=""></a>
                                   <a href="javascript:;" ><img src="assets/img/icons/pdf-icon-04.svg" alt=""></a>
 
-                              </div>
+                              </div> -->
                           </div>
                       </div>
                       <!-- /Table Header -->
@@ -55,22 +55,29 @@
                           <table matSort (matSortChange)="sortData($event)" class="table border-0 custom-table comman-table datatable mb-0">
                               <thead>
                                   <tr>
-                                      <th mat-sort-header="name">Nombres y Apellidos</th>
-                                      <th mat-sort-header="email">Email</th>
+                                      <th mat-sort-header="name">Nombre</th>
+                                      <th mat-sort-header="email">No. Documento</th>
                                       <th mat-sort-header="mobile">Telefono</th>
-                                      <th mat-sort-header="birth_date">Fecha de cumpleaños</th>
-                                      <th mat-sort-header="n_document">No. Documento</th>
+                                      <!-- <th mat-sort-header="whatsapp"></th> -->
+                                      <th mat-sort-header="created_at">Fecha Registro</th>
+                                      <!-- <th mat-sort-header="age">Edad</th> -->
+                                      <!-- <th mat-sort-header="n_document">No.Doc</th> -->
                                       <!-- <th mat-sort-header="created_at">Fecha de registro</th> -->
                                       <th ></th>
                                   </tr>
                               </thead>
                               <tbody>
                                   <tr *ngFor="let data of patientsList">
-                                      <td>{{ data.name  + ' ' +  (data.surname ? data.surname : '') }}</td>
-                                      <td>{{data.email }}</td>
-                                      <td>{{data.mobile }}</td>
-                                      <td>{{data.birth_date }}</td>
+                                      <!-- <td>{{ data.name  + ' ' +  (data.surname ? data.surname : '') }}</td> -->
+                                      <td class="profile-image list-patient-m"><a  [routerLink]="['/patient-m/list/profile/', data.id ]"><img width="28" height="28" [src]="data.avatar ? data.avatar : '../../../../assets/img/user.jpg'" class="rounded-circle m-r-5" alt=""> {{ data.name  + ' ' +  (data.surname ? data.surname : '') }}</a></td>
+                                      <!-- <td class="profile-image"><a  [routerLink]="['/patient-m/list/profile/', data.id ]"> {{ data.name  + ' ' +  (data.surname ? data.surname : '') }}</a></td> -->
                                       <td>{{data.n_document }}</td>
+                                      <!-- <td>  <a href='https://wa.me/503{{data.mobile}}'><img src="../../../../assets/img/whatsapp.png" alt="" width="50px">{{data.mobile}}</a></td> -->
+                                      <!-- <td> <a href='https://wa.me/503{{data.mobile}}'>{{data.mobile}}</a></td> -->
+                                      <td>{{data.mobile}}</td>
+                                      <td>{{data.created_at }}</td>
+                                      <!-- <td> {{ calculateAge(data.birth_date) }}</td> -->
+                                      <!-- <td>{{data.n_document }}</td> -->
                                       <!-- <td>{{data.created_at}}</td> -->
                                       <td class="text-end">
                                           <div class="dropdown dropdown-action" *ngIf="data.id !== 1">

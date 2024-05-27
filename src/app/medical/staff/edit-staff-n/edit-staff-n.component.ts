@@ -58,6 +58,7 @@ export class EditStaffNComponent {
       this.designation = this.staff_selected.designation;
       this.address = this.staff_selected.address;
       this.IMAGEN_PREVISUALIZA = this.staff_selected.avatar;
+      console.log(this.staff_selected.avatar);
     });
 
     this.staffService.listConfig().subscribe((resp:any) => {
