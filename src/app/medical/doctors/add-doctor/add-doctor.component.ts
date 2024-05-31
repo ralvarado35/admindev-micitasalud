@@ -55,6 +55,10 @@ export class AddDoctorComponent {
       day: 'Viernes',
       class: 'table-info',
     },
+    {
+      day: 'Sabado',
+      class: 'table-info',
+    },
   ];
 
   public hours_days: any = [];
